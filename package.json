@@ -1,0 +1,16 @@
+{
+  "name": "refactor",
+  "version": "1.0.0",
+  "description": "ChatGPT Refactor",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shanal Divyasnh",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.9",
+    "dotenv": "^16.0.3",
+    "openai": "^3.2.1"
+  }
+}

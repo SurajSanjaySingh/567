@@ -1,0 +1,215 @@
+"def add_dictionary(text):
+    dictionary[text]=0
+def find_in_dictionary(lines):
+    lines=lines.split()
+    for line in lines:
+        if line not in dictionary:
+            if line not in invalid_dictionary:
+                invalid_dictionary[line] = 1
+            else:
+                invalid_dictionary[line] +=1
+def print_invalid_dictionary():
+    for key in invalid_dictionary.keys():
+        print(key)
+def number_of_times (number,what):
+    sum=number+1
+    for step in range(number):
+        if what==0:
+            #print('Введите словарное слово №', sum-number,' : ', end='')
+            add_dictionary(input().lower())
+        elif what==1:
+            #print('Введите строку №', number, ' : ', end='')
+            find_in_dictionary(input().lower())
+        number -= 1
+dictionary,invalid_dictionary = {},{}
+#print('Зададите количество слов для словаря: ',end='')
+number_of_times(int(input()),0)
+#print('Зададите количество строк, которые будем сверять со словарём: ',end='')
+number_of_times(int(input()),1)
+#print('Отсутствующие слова в словаре: ')
+print_invalid_dictionary()
+"def running(move):
+    for run in range (move):
+        step=input().split()
+        if step[0]=='восток':
+            coordinates[0] += int(step[1])
+        elif step[0] == 'запад':
+            coordinates[0] -= int(step[1])
+        elif step[0] == 'север':
+            coordinates[1] += int(step[1])
+        elif step[0] == 'юг':
+            coordinates[1] -= int(step[1])
+        move -= 1
+coordinates=[0,0]
+move=0
+running(int(input()))
+print(coordinates[0],coordinates[1])
+"#objects=[10,20,30,300,20,10]
+objects2=[]
+if len(objects)<=100:
+    for obj in range (len(objects)):
+        if objects[obj] not in objects2:
+            objects2.append(objects[obj])
+print(len(objects2))
+"def creates(func,parrent):
+    queries.append([func,parrent])
+def adds (func,var):
+    for step in range (len(queries)):
+        if queries[step][0] == func:
+            queries[step].append(var)
+            return
+def gets (func,var):
+    for step in range (len(queries)):
+        if queries[step][0] == func:
+            if var in queries[step]:
+                return queries[step][0]
+            elif queries[step][1]==""None"":
+                return None
+            else:
+                return gets(queries[step][1], var)
+def parse(x,y,z):
+    if x == ""create"" :
+        creates(y,z)
+    elif x == ""add"" :
+        adds(y,z)
+    elif x == ""get"" :
+        quer.append(gets(y,z))
+queries =[[""global"
+""None""]]
+quer=[]
+enter=int (input())
+for i in range (enter):
+    x,y,z=input().split()
+    parse(x,y,z)
+for i in quer:
+    print(i)
+"class MoneyBox:
+    def __init__(self, capacity):# конструктор с аргументом – вместимость копилки
+        self.capacity=capacity
+    def can_add(self, v):# True, если можно добавить v монет, False иначе
+        self.v=v
+        if self.capacity - self.v < 0:
+            return False
+        else: return True
+    def add(self, v):# положить v монет в копилку
+        if self.can_add(v):
+            self.capacity = self.capacity-self.v
+"class Buffer:
+    def __init__(self):# конструктор без аргументов
+        self.List=[]
+    def add(self, *a):# добавить следующую часть последовательности
+        for i in range(len(a)):
+            self.List.append(a[i])
+            if len(self.List)==5:
+                print(sum(self.List[0:5]))
+                del self.List[0:5]
+    def get_current_part(self):# вернуть сохраненные в текущий момент элементы
+                               # последовательности в порядке, в котором они были добавлены
+        return(self.List[0:len(self.List)])
+"class ExtendedStack(list):
+    def sum(self):# операция сложения
+        self.append(self.pop() + self.pop())
+    def sub(self):# операция вычитания
+        self.append(self.pop() - self.pop())
+    def mul(self):# операция умножения
+        self.append(self.pop() * self.pop())
+    def div(self):# операция целочисленного деления
+        self.append(self.pop() // self.pop())
+"def enter_val(rep,what_do):#обработка количества запросов и что нужно сделать
+    for step in range (rep):
+        if what_do : ways.append([i for i in (input().split())]) # описание классов
+        elif what_do == False :
+            find(input())
+def find (y): #обработка наследования
+    quest.append(y)
+    for step in range (len(quest)-1):
+            finds(quest[step],y)
+    if True in result: quests.append(y) #если хоть в одном ветвлении нашли предка
+    result.clear()
+def finds(find_y,y):
+    if find_y==y: return result.append(True)
+    for i in range (len(ways)):
+            if y == ways[i][0]:
+                if find_y in ways[i]: return result.append(True)
+                elif len(ways[i])==1 :return result.append(False)
+                else:
+                    for j in range (2,len(ways[i])): finds(find_y,ways[i][j])
+                    return result.append(False)
+ways, result, quest, quests = [],[], [],[]
+enter_val(int(input()),True) # число классов для описания наследования
+enter_val(int(input()),False)# число запросов по наследованию
+for i in quests:
+    print(i)
+"import datetime
+year,month,day = map(int,input().split())
+days_to_date = int(input())
+lyear,lmonth,lday = map(int,(str(datetime.date(year,month,day) + datetime.timedelta(days_to_date)).split('-')))
+print(lyear,lmonth,lday)
+"def primes():
+    a = 1
+    while True:  
+        a += 1
+        flag=True
+        for step in range(2,a):
+            if a%step==0: flag=False
+        if flag: yield a
+"def fib(n):
+    x = [0, 1]
+    if not n == 0 or n == 1:
+        for step in range(2, n+1):
+            z = x[step - 2] + x[step - 1]
+            x.append(z)
+    return x[n]
+def main():
+    n = int(input())
+    print(fib(n))
+
+if __name__ == ""__main__"":
+    main()
+"def fib_mod(n, m):
+    x = [0, 1] # создаём список n%m пока не найдём последовательность 0,1,...,0,1 (период Пизано)
+    #периодом будет длина списка - 2 (так как 0 и 1 уже есть вначале)
+    if not n == 0 or n == 1:
+        for step in range(2, n + 1):
+            z = (x[step - 2] + x[step - 1])%m
+            x.append(z)
+            if x[step]==1 and x[step-1]==0: # если нашли последовательность, то дальше нету смысла считать
+                return x[n % (len(x) - 2)]  # возвращаем наша число n%(период). 
+    return x[n]%m #это возвращаем если не нашли период
+def main():
+    n, m = map(int, input().split())
+    print(fib_mod(n, m))
+if __name__ == ""__main__"":
+     main()
+"def substitution(s, a, b):
+    if a in b and a in s:
+        return ""Impossible"
+    counter = 0
+    while a in s:
+        s = s.replace(a, b)
+        counter += 1
+    return counter
+print(substitution(input(), input(), input()))
+"def test(s, t):
+    counter = 0
+    while t in s:
+        s = s[s.find(t)+1:]
+        counter += 1
+    return counter
+print(test(input(), input()))
+"import re
+import sys
+texts = ""cat"
+for line in sys.stdin:
+    text = line.rstrip()
+    find_text = re.findall(texts,text)
+    if len(find_text) > 1: 
+        print(text)
+"import re
+import sys
+texts = r"".*(\bcat\b).*"
+for line in sys.stdin:
+    text = line.rstrip()
+    find_text = re.findall(texts,text)
+    if find_text:
+        print(text)

@@ -1,0 +1,380 @@
+"# -*- coding: utf-8 -*-
+
+# Будем использовать для копии списка
+import copy
+
+molodes = 3  # очки за победу
+tak_sebe = 1  # очки за нечью
+komand = {}  # тут будеи хранить команды с результатами
+result = [0, 0, 0, 0]  # результаты
+# съели количество игр и по нему делаем цикл
+for i in range(int(input())):
+    # заталкали все в переменные
+    k1, r1, k2, r2 = input().split("";"")
+    # результаты перевели в Int
+    r1, r2 = int(r1), int(r2)
+    # проверим что 1 команда есть в словаре
+    if k1 not in komand:
+        komand[k1] = copy.deepcopy(result)
+    # проверим что 2 команда есть в словаре
+    if k2 not in komand:
+        komand[k2] = copy.deepcopy(result)
+    # если первая победила
+    if r1 > r2:
+        komand[k1][0] += 1  # увиличим количество игр для 1
+        komand[k2][0] += 1  # увиличим количество игр для 2
+        komand[k1][1] += 1  # увиличим количество побед для 1
+        komand[k2][3] += 1  # увиличим количество поражений для 2
+    # если вторая победила
+    elif r2 > r1:
+        komand[k1][0] += 1  # увиличим количество игр для 1
+        komand[k2][0] += 1  # увиличим количество игр для 2
+        komand[k2][1] += 1  # увиличим количество побед для 2
+        komand[k1][3] += 1  # увиличим количество поражений для 1
+    # Остались только нечьи
+    else:
+        komand[k1][0] += 1  # увиличим количество игр для 1
+        komand[k2][0] += 1  # увиличим количество игр для 2
+        komand[k1][2] += 1  # увиличим количество нечьих для 1
+        komand[k2][2] += 1  # увиличим количество нечьих для 2
+# Пройдемся по словарю
+for i in komand:
+    # Выводим с помощью format    
+    print(""{}:{} {} {} {} {}"".format(i,
+                                     komand[i][0],
+                                     komand[i][1],
+                                     komand[i][2],
+                                     komand[i][3],
+                                     komand[i][1] * molodes + komand[i][2] * tak_sebe))
+"# -*- coding: utf-8 -*-
+
+# символы исходного алфавита,
+a1 = input()
+# символы конечного алфавита
+a2 = input()
+# Делаем словарь для шифроыки
+normal = dict(zip(a1, a2))
+# Делаем словарь для дешивроыки
+zhopa = dict(zip(a2, a1))
+# Считываем для шифрования
+a1 = input()
+# Считываем для дешифрования
+a2 = input()
+# Шифруем
+for i in a1:
+    print(normal[i], end="""")
+print()
+# Дешифруем
+for i in a2:
+    print(zhopa[i], end="""")
+"# -*- coding: utf-8 -*-
+k = [0, 0]
+for _ in range(0, int(input())):
+    s = input().split()
+    if s[0] == 'восток':
+        k[0] = k[0] + int(s[1])
+    elif s[0] == 'север':
+        k[1] = k[1] + int(s[1])
+    elif s[0] == 'запад':
+        k[0] = k[0] - int(s[1])
+    elif s[0] == 'юг':
+        k[1] = k[1] - int(s[1])
+print(*k)
+"# -*- coding: utf-8 -*-
+sl = {}
+res = set()
+for _ in range(1, int(input()) + 1):
+    s = input().lower()
+    sl.setdefault(s, s)
+for _ in range(1, int(input()) + 1):
+    s = input().split()
+    for i in s:
+        if sl.get(i.lower()) == None:
+            res.add(i)
+print(*res, sep='\n')
+"# -*- coding: utf-8 -*-
+s = 0
+for _ in range(0, int(input())):
+    s += int(input())
+print(s)
+"# -*- coding: utf-8 -*-
+ans = set()
+for obj in objects: 
+    ans.add(id(obj))
+print(len(ans))
+"# put your python code here
+n = int(input())
+z = n % 100
+y = n % 10
+if y == 1 and z != 11:
+    print(n, ' программист')
+elif 2 <= y <= 4 and not 12 <= z <= 14:
+    print(n, ' программиста')
+else:
+    print(n, ' программистов')
+"a = [int(i) for i in input().split()]
+b = 0
+c = (len(a) - 2)
+for i in a:
+    if len(a) == 1:
+        print(a[0])
+        break
+    print(a[1] + a[-1], end=' ')
+    while c != 0:
+        print(a[b] + a[b+2], end=' ')
+        b += 1
+        c -= 1
+    print(a[-2] + a[0], end=' ')
+    break
+"a = int(input())
+b = 1
+list1 = []
+for i in range(b, a + 1):
+    list1 += i * [i]
+b = 0
+while b != a:
+    print(list1[b], end=' ')
+    b += 1
+"a = int(input())
+cv = a
+b = [[0] * a for i in range(a)]
+c = []
+p, z, r, d, x, y = 0, 0, 0, 0, 0, 0
+for i in range((a * a)+1):
+    if i != 0:
+        c.append(i)
+while r != cv * cv:
+    for i in range(a):
+        b[p][z] = c[r]
+        r += 1
+        z += 1
+    p += 1
+    a -= 1
+    z -= 2
+    for j in range(a):
+        b[p][z+1] = c[r]
+        r += 1
+        p += 1
+    p -= 1
+    for k in range(a):
+        b[p][z] = c[r]
+        r += 1
+        z -= 1
+    p -= 1
+    a -= 1
+    for l in range(a):
+        b[p][d] = c[r]
+        r += 1
+        p -= 1
+    d += 1
+    z = d
+    p += 1
+for n in range(cv):
+    print(*b[n])
+"c = []
+while True:
+    a = [i for i in input().split()]
+    if a == ['end']:
+        break
+    c += [a]
+st = len(c)
+col = len(c[0])
+b = []
+for i in range(st):
+    for j in range(col):
+        b += [int(c[i-1][j]) + int(c[i-st+1][j]) + int(c[i][j-1]) + int(c[i][j-col+1])]
+z = 0
+w = [[0] * col for i in range(st)]
+for i in range(st):
+    for j in range(col):
+        if w[i][j] == 0:
+            w[i][j] = b[z]
+            z += 1
+
+for j in range(st):
+    for i in range(col):
+        print(w[j][i], end=' ')
+    print()
+"def modify_list(l):
+    count = 0
+    for i in range(len(l)):
+        if l[i] % 2 == 0:
+            l[i] = l[i] // 2
+        else:
+            del l[i]
+            l.insert(0, '*')
+            count += 1
+    del l[:count]
+"ouf = {}
+gms = int(input())
+for i in range(gms):
+    gms_lst = [i for i in input().split(';')]
+    if gms_lst[0] not in ouf:
+        ouf[gms_lst[0]] = [0, 0, 0, 0, 0]
+    if gms_lst[2] not in ouf:
+        ouf[gms_lst[2]] = [0, 0, 0, 0, 0]
+    if gms_lst[0] in ouf:
+        ouf[gms_lst[0]][0] += 1
+        if gms_lst[1] > gms_lst[3]:
+            ouf[gms_lst[0]][1] += 1
+            ouf[gms_lst[2]][3] += 1
+        elif gms_lst[1] == gms_lst[3]:
+            ouf[gms_lst[0]][2] += 1
+            ouf[gms_lst[2]][2] += 1
+        else:
+            ouf[gms_lst[2]][1] += 1
+            ouf[gms_lst[0]][3] += 1
+    if gms_lst[2] in ouf:
+        ouf[gms_lst[2]][0] += 1
+for key in ouf.keys():
+    ouf[key][4] = ouf[key][1] * 3 + ouf[key][2]
+    print(key, end=':')
+    for value in ouf[key]:
+        print(value, end=' ')
+    print()
+"def return_key(dict1, value):
+    for jb in dict1.keys():
+        if dict1[jb] == value:
+            return jb
+
+
+alphabet = input()
+cipher = input()
+cipher_key = {}
+z = 0
+for i in alphabet:
+    cipher_key[i] = cipher[z]
+    z += 1
+for i in range(2):
+    text1 = input()
+    for j in range(len(text1)):
+        if i == 0:
+            print(cipher_key[text1[j]], end='')
+            if j == len(text1) - 1:
+                print()
+        else:
+            print(return_key(cipher_key, text1[j]), end='')
+"a = int(input())
+collection, wrong_words = set(), set()
+for i in range(a):
+    collection.add(input().lower())
+for i in range(int(input())):
+    row = (s for s in input().lower().split())
+    for word in row:
+        if word not in collection:
+            wrong_words.add(word)
+print('\n'.join(f for f in wrong_words))
+,
+ok_status = ''
+
+
+def search(vocab, list1, namespace, var):
+    global ok_status
+    for i in list1:
+        step = i.split(':')
+        if step[1] == namespace:
+            if var in vocab[step[0]]:
+                ok_status = step[0]
+                return
+            else:
+                search(vocab, list1, namespace=step[0], var=var)
+
+
+count = int(input())
+scopes = {'name': {}, 'vars': set()}
+lst = []
+while count != 0:
+    row = input().split()
+    if 'global' in row:
+        if row[0] == 'create':
+            scopes['name'][row[1]] = set()
+        elif row[0] == 'add':
+            scopes['vars'].add(row[2])
+        else:
+            print('global' if row[2] in scopes['vars'] else 'None')
+    else:
+        if 'get' not in row:
+            if row[1] in scopes['name']:
+                scopes['name'][row[1]].add(row[2])
+            else:
+                scopes['name'][row[1]] = set()
+                lst.append(row[2] + ':' + row[1])
+        else:
+            if row[2] in scopes['name'][row[1]]:
+                print(row[1])
+            else:
+                search(scopes['name'], lst, row[1], row[2])
+                if ok_status == '' and row[2] not in scopes['vars']:
+                    print('None')
+                elif ok_status == '' and row[2] in scopes['vars']:
+                    print('global')
+                else:
+                    print(ok_status)
+                ok_status = ''
+    count -= 1
+"class MoneyBox:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.count = 0
+
+    def can_add(self, v):
+        if self.capacity >= v:
+            return True
+        else:
+            return False
+
+    def add(self, v):
+        if self.can_add(v) is True:
+            self.capacity -= v
+            self.count += v
+
+    def balance(self):
+        print(self.count)
+"def foo(dict1):
+    for key in dict1.keys():
+        for key2 in dict1.keys():
+            if key in dict1[key2]:
+                dict1[key2].extend(dict1[key])
+
+
+classes = {}
+for i in range(int(input())):
+    a = input().split()
+    classes[a[0]] = []
+    for j in a:
+        if j != a[0] and j != ':':
+            classes[a[0]].append(j)
+foo(classes)
+for i in range(int(input())):
+    b = input().split()
+    if len(b) == 2:
+        if b[0] in classes[b[1]] or b[0] == b[1]:
+            print('Yes')
+        else:
+            print('No')
+    else:
+        print('Yes' if b[0] in classes else 'No')
+"def foo(dict1):
+    for key in dict1.keys():
+        for key2 in dict1.keys():
+            if key in dict1[key2]:
+                dict1[key2].extend(dict1[key])
+
+
+ouf = set()
+variation = set()
+classes = {}
+for i in range(int(input())):
+    a = input().split()
+    classes[a[0]] = []
+    classes[a[0]].extend(a[2:])
+
+foo(classes)
+
+for i in range(int(input())):
+    b = input()
+    variation.add(b)
+    for j in classes[b]:
+        if j in variation and b not in ouf:
+            print(b)
+            ouf.add(b)

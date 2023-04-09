@@ -1,0 +1,280 @@
+"size = int(input())
+
+table = [[0 for j in range(size)] for i in range(size)]
+
+lower_bond = 0
+upper_bond = size - 1
+squares_num = size - 2
+
+count = 0
+while count != size ** 2:
+    turn = 0
+    if lower_bond == upper_bond:
+        count += 1
+        table[lower_bond][upper_bond] = count
+        break
+    for k in range(4):
+        turn += 1
+        for i in range(lower_bond, upper_bond):
+            count += 1
+            if turn == 1:
+                table[lower_bond][i] = count
+            if turn == 2:
+                table[i][upper_bond] = count
+            if turn == 3:
+                table[upper_bond][-i-1] = count
+            if turn == 4:
+                table[-i-1][lower_bond] = count
+    lower_bond += 1
+    upper_bond -= 1
+
+
+for i in range(size):
+    print(' '.join(map(str,table[i])))
+"# Считайте, что функция f(x) уже определена выше. Определять её отдельно не требуется.
+
+
+n = int(input())
+d, res = {}, []
+for i in range(n):
+    x = int(input())
+    if x in d.keys():
+        res.append(d[x])
+    else:
+        d[x] = f(x)
+        res.append(d[x])
+
+print(*res, sep=""\n"")
+,
+class MoneyBox:
+    def __init__(self, capacity):
+        # конструктор с аргументом – вместимость копилки
+        self.v = 0
+        self.capacity = capacity
+    
+    def can_add(self, v):
+        # True, если можно добавить v монет, False иначе
+        if self.v + v > self.capacity:
+            return False
+        else:
+            return True
+    
+    def add(self, v):
+        # положить v монет в копилку
+        if self.can_add(v):
+            self.v += v
+"while True:
+    stdin = input()
+    if stdin == 'End':
+        print('Good bye!')
+        break
+    print('Processing ""{}"" command...'.format(stdin))
+,
+num_dict = {
+    1000: 'M', 
+    900: 'CM', 
+    500: 'D', 
+    400: 'CD', 
+    100: 'C', 
+    90: 'XC', 
+    50: 'L', 
+    40: 'XL', 
+    10: 'X', 
+    9: 'IX', 
+    5: 'V', 
+    4: 'IV', 
+    1: 'I'
+}
+
+num = int(input())
+res = ''
+for i in num_dict:
+    if num % i < num:
+        res += str(num_dict[i]) * (num // i)
+        num = num % i
+print(res)
+"def collatz(n):
+    print(int(n), end=' ')
+    if n == 1:
+        return
+    elif n % 2 == 0:
+        n = n / 2
+    else:
+        n = n * 3 + 1
+    collatz(n)
+
+
+collatz(int(input()))
+"stdin = input().split()
+words = {}
+for i in stdin:
+    length = len(i)
+    if length not in words:
+        words[length] = 1
+    else:
+        words[length] += 1
+
+for i, k in sorted(words.items()):
+    print(str(i) + ': ' + str(k))
+"n, m = [int(i) for i in input().split()]
+
+matrix = []
+for i in range(n):
+    row = [int(i) for i in input().split()]
+    matrix.append(row)
+
+for column in range(m):
+    for row in range(n):
+        print(matrix[row][column], end=' ')
+    print(end='\n')
+,
+num_dict = {
+    'M': 1000,
+    'CM': 900,
+    'D': 500,
+    'CD': 400,
+    'C': 100,
+    'XC': 90,
+    'L': 50,
+    'XL': 40,
+    'X': 10,
+    'IX': 9,
+    'V': 5,
+    'IV': 4,
+    'I': 1
+}
+
+rom = input()
+i = 0
+res = 0
+while i < len(rom):
+    
+    crnt = rom[i]
+    if i + 1 < len(rom):
+        nxt = rom[i+1]
+    else:
+        nxt = crnt
+        
+    if num_dict[crnt] < num_dict[nxt]:
+        num = num_dict[crnt + nxt]
+        i += 2
+    else:
+        num = num_dict[crnt]
+        i += 1
+    res += num
+
+print(res)
+"'''set relations of classes'''
+
+
+n = int(input())  # number of classes
+
+classes_dict = {}  # {child: parents}
+for i in range(n):
+
+    '''reading and parsing'''
+    stdin = input().split(':')
+    child = stdin[0].strip()
+    parents = set()
+    if len(stdin) == 2:
+        parents.update(stdin[1].split())
+
+    '''write to the dict'''
+    if child in classes_dict:
+        classes_dict[child].update(parents)
+    else:
+        classes_dict[child] = parents
+
+
+'''checking relations of classes'''
+
+
+def is_parent(classes_dict, parent, child):
+    d = classes_dict
+    if parent == child or parent in d[child]:
+        return True
+    else:
+        for sub_child in d[child]:
+            if sub_child in d and is_parent(d, parent, sub_child):
+                return True
+
+
+q = int(input())  # number of requests
+for i in range(q):
+    class_1, class_2 = input().split()
+    print('Yes' if is_parent(classes_dict, class_1, class_2) else 'No')
+"class ExtendedStack(list):
+    def sum(self):
+        # операция сложения
+        return self.append(self.pop() + self.pop())
+
+    def sub(self):
+        # операция вычитания
+        return self.append(self.pop() - self.pop())
+
+    def mul(self):
+        # операция умножения
+        return self.append(self.pop() * self.pop())
+
+    def div(self):
+        # операция целочисленного деления
+        return self.append(self.pop() // self.pop())
+,
+class LoggableList(list, Loggable):
+    def append(self, arg):
+        super(LoggableList, self).append(arg)
+        self.log(arg)
+,
+try:
+    foo()
+except ZeroDivisionError:
+    print('ZeroDivisionError')
+except ArithmeticError:
+    print('ArithmeticError')
+except AssertionError:
+    print('AssertionError')
+,
+'''set relations of exeption classes'''
+
+
+n = int(input())  # number of classes
+
+exeptions_dict = {}  # {child: parents}
+for i in range(n):
+
+    '''reading and parsing'''
+    stdin = input().split(':')
+    child = stdin[0].strip()
+    parents = set()
+    if len(stdin) == 2:
+        parents.update(stdin[1].split())
+
+    '''write to the dict'''
+    if child in exeptions_dict:
+        exeptions_dict[child].update(parents)
+    else:
+        exeptions_dict[child] = parents
+
+
+'''checking relations of exeption classes'''
+
+
+def is_parent(classes_dict, parent, child):
+    d = classes_dict
+    if parent == child or parent in d[child]:
+        return True
+    else:
+        for sub_child in d[child]:
+            if sub_child in d and is_parent(d, parent, sub_child):
+                return True
+
+
+m = int(input())  # number of exceptions processed
+stack = []
+for i in range(m):
+    exeption = input()
+    for i in stack:
+        if is_parent(exeptions_dict, i, exeption):
+            print(exeption)
+            break
+    stack.append(exeption)

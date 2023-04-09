@@ -1,0 +1,489 @@
+"def poker(lst):
+    from collections import defaultdict
+
+    def seq(r):
+        a = sorted([i - r[0] for i in r]) == [0, 1, 2, 3, 4]
+        return a or r == [0, 1, 2, 3, 12]
+
+    ind = dict(zip(['2', '3', '4', '5', '6', '7', '8', '9', '10',\
+                      'J', 'Q', 'K', 'A'], range(13)))
+    lst1 = sorted([ind[card[:-1]] for card in lst])
+    lst2 = set([i[-1] for i in lst])
+    dct = defaultdict(list)
+    for i in set(lst1):
+        dct[lst1.count(i)].append(i)
+    if len(lst2) == 1 and lst1 == [8, 9, 10, 11, 12]:
+        return 'Royal Flush'
+    elif len(lst2) == 1 and seq(lst1):
+        return 'Straight Flush'
+    elif len(dct[4]) == 1:
+        return 'Four of a Kind'
+    elif len(dct[3]) == 1 and len(dct[2]) == 1:
+        return 'Full House'
+    elif len(lst2) == 1:
+        return 'Flush'
+    elif seq(lst1):
+        return 'Straight'
+    elif len(dct[3]) == 1:
+        return 'Three of a Kind'
+    elif len(dct[2]) == 2:
+        return 'Two Pairs'
+    elif len(dct[2]) == 1:
+        return 'Pair'
+    else:
+        return 'High Card'
+
+lst = input().split()
+print(poker(lst))
+"def fib(n):
+    a, b, i = 0, 1, 2
+    while i <= n:
+        a, b = b, a + b
+        i += 1
+    return b
+
+def main():
+    n = int(input())
+    print(fib(n))
+
+
+if __name__ == ""__main__"":
+    main()
+"def fib_digit(n):
+    a, b, i = 0, 1, 2
+    while i <= n:
+        a, b = b, (a + b) % 10
+        i += 1
+    return b
+
+
+def main():
+    n = int(input())
+    print(fib_digit(n))
+
+
+if __name__ == ""__main__"":
+    main()
+"def gcd(a, b):
+    if not a or not b:
+        return max(a, b)
+    else:
+        return gcd(min(a, b), max(a, b) % min(a, b))
+
+
+def main():
+    a, b = map(int, input().split())
+    print(gcd(a, b))
+
+
+if __name__ == ""__main__"":
+    main()
+"def code(x, y):
+    for i in x:
+        bit[i] = y + bit.get(i, '')
+
+s = input()
+tmp, bit, res = [], {}, ''
+for i in set(s):
+    tmp.append((s.count(i), i))
+n = k = len(tmp)
+if n == 1:
+    bit[tmp[0][1]] = '0'
+else:
+    while k > 1:
+        a = tmp.pop(tmp.index(min(tmp)))
+        code(a[1], '0')
+        b = tmp.pop(tmp.index(min(tmp)))
+        code(b[1], '1')
+        tmp.append((a[0] + b[0], a[1] + b[1]))
+        k -= 1
+for i in s:
+    res += bit[i]
+print(n, len(res))
+for i in sorted(set(s)):
+    print(i + ': ' + bit[i])
+print(res)
+"def up(i):
+    while i > 0 and a[(i - 1)//2] < a[i]:
+        a[(i - 1)//2], a[i] = a[i], a[(i - 1)//2]
+        i = (i - 1) // 2
+
+def down(i):
+    while 2 * i + 1 <= len(a) - 1:
+        j = i
+        if a[2 * i + 1] > a[i]:
+            j = 2 * i + 1
+        if 2 * i + 2 <= len(a) - 1 and a[2 * i + 2] > a[j]:
+            j = 2 * i + 2
+        if i == j:
+            break
+        else:
+            a[i], a[j] = a[j], a[i]
+            i = j
+
+a = []
+for _ in range(int(input())):
+    s = (input().split())
+    if len(s) == 2:
+        a.append(int(s[1]))
+        up(len(a) - 1)
+    else:
+        print(a[0])
+        a[0] = a[-1]
+        a.pop()
+        down(0)
+"def binary_search(lst, x):
+    l, r = 0, len(lst) - 1
+    while l <= r:
+        m = l + (r - l) // 2
+        if lst[m] == x:
+            return m + 1      # Порядок вывода от 1, а не от 0
+        elif lst[m] > x:
+            r = m - 1
+        else:
+            l = m + 1
+    return -1
+
+
+def main():
+    a = [int(i) for i in input().split()][1:]
+    b = [int(i) for i in input().split()][1:]
+    for j in b:
+        print(binary_search(a, j), end=' ')
+
+
+if __name__ == '__main__':
+    main()
+"def merge(a, b):
+    tmp = []
+    global k
+    while a and b:
+        if a[0] <= b[0]:
+            tmp.append(a.pop(0))
+        else:
+            tmp.append(b.pop(0))
+            k += len(a)
+    tmp.extend(a or b)
+    return tmp
+
+
+def mergesort(lst):
+    if len(lst) == 1:
+        return lst
+    m = len(lst) // 2
+    return merge(mergesort(lst[: m]), mergesort(lst[m:]))
+    
+
+def main():
+    n = int(input())
+    queue = [int(i) for i in input().split()]
+    mergesort(queue)
+    print(k)
+
+
+if __name__ == '__main__':
+    k = 0
+    main()
+"# 3-е разбиение
+
+
+def partition(a):
+    lss, eql, grt = [], [], []
+    pvt = (a[0] + a[len(a)//2] + a[-1])//3
+    for x in a:
+        if x < pvt:
+            lss.append(x)
+        elif x == pvt:
+            eql.append(x)
+        else:
+            grt.append(x)
+    return lss, eql, grt
+
+
+# Быстрая сортировка с элиминацией хвостовой рекурсии
+
+
+def quicksort(a):
+    while len(a) > 1:
+        lss, eql, grt = partition(a)
+        if len(lss) < len(grt):
+            first = quicksort(lss)
+            return first + eql + quicksort(grt)
+        elif len(lss) > len(grt):
+            first = quicksort(grt)
+            return quicksort(lss) + eql + first
+        else:
+            return quicksort(lss) + eql + quicksort(grt)
+    return a
+
+
+# Кол-во элементов слева от x (n - нестрогое/строгое неравенство)
+
+
+def binarycount(lst, x, n):
+    l, r = 0, len(lst) - 1
+    while l <= r:
+        m = l + (r - l) // 2
+        if lst[m] <= x - n:
+            l = m + 1
+        elif lst[m] > x - n:
+            r = m - 1
+    return l
+
+
+def main():
+    left, right = [], []
+    n, m = map(int, input().split())
+    for i in range(n):
+        l, r = map(int, input().split())
+        left.append(l)
+        right.append(r)
+    point = [int(i) for i in input().split()]
+    left, right = quicksort(left), quicksort(right)
+    for i in point:
+        print(binarycount(left, i, 0) - binarycount(right, i, 1), end=' ')
+
+if __name__ == '__main__':
+    main()
+"def countsort(a):
+    b, c = [0] * 11, [0] * len(a)
+    for i in a:
+        b[i] += 1
+    for i in range(1, 11):
+        b[i] += b[i - 1]
+    for j in a[::-1]:
+        c[b[j] - 1] = j
+        b[j] -= 1
+    return c
+
+
+def main():
+    n = int(input())
+    lst = [int(i) for i in input().split()]
+    print(*countsort(lst))
+
+
+if __name__ == '__main__':
+    main()
+"import sys
+
+
+def lisbuttonup(a):
+    d = [1] * len(a)
+    for i in range (len(a)):
+        for j in range(i):
+            if d[j] + 1 > d[i] and not a[i] % a[j]:
+                d[i] = d[j] + 1
+    return max(d)
+
+
+def main():
+    reader = (tuple(map(int, line.split())) for line in sys.stdin)
+    n = next(reader)
+    lst = next(reader)
+    print(lisbuttonup(lst))
+
+
+if __name__ == '__main__':
+    main()
+"import sys
+
+
+def diff(ai, bj):
+    if ai == bj:
+        return 0
+    return 1 
+
+
+def editdistbu(a, b):
+    n, m = len(a) + 1, len(b) + 1
+    d = [[0 for _ in range(m)] for _ in range(n)]
+    for i in range(n):
+        d[i][0] = i
+    for j in range(m):
+        d[0][j] = j
+    for i in range(1, n):
+        for j in range(1, m):
+            c = diff(a[i - 1], b[j - 1])
+            d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + c)
+    return d[n - 1][m - 1]
+    
+
+
+def main():
+    reader = (tuple(line.strip()) for line in sys.stdin)
+    a = next(reader)
+    b = next(reader)
+    print(editdistbu(a, b))
+
+
+if __name__ == '__main__':
+    main()
+"import sys
+
+
+def knapsackbu(c, w, n):
+    d = [[0] * c for _ in range(n)]
+    for i in range(1, n):
+        for j in range(1, c):
+            d[i][j] = d[i - 1][j]
+            if w[i - 1] <= j:
+                d[i][j] = max(d[i][j], d[i - 1][j - w[i - 1]] + w[i - 1])
+    return d[-1][-1]
+
+
+def main():
+    reader = (map(int, line.split()) for line in sys.stdin)
+    capacity, n = next(reader)
+    weight_list = tuple(next(reader))
+    print(knapsackbu(capacity + 1, weight_list, n + 1))
+
+
+if __name__ == '__main__':
+    main()
+"import sys
+
+
+def stairs(a, n):
+    prev, curr, acc = 0, a[1], a[1]
+    for i in range(2, n + 1):
+        acc = max(prev, curr) + a[i]
+        prev, curr = curr, acc
+    return acc
+
+#  итерация
+#def stairs(a, n):
+#    d = [0] + [a[1]] + [0] * (n - 1)
+#    for i in range(2, n + 1):
+#        d[i] = max(d[i - 1], d[i - 2]) + a[i]
+#    return d[-1]
+
+#  рекурсия - не прошла
+#def stairs(a, n):
+#    if n < 2:
+#        return a[n]
+#    return max(stairs(a, n - 1), stairs(a, n - 2)) + a[n]
+
+
+def main():
+    reader = (map(int, line.split()) for line in sys.stdin)
+    n, = next(reader)
+    step_price = [0] + list(next(reader))
+    print(stairs(step_price, n))
+
+
+if __name__ == '__main__':
+    main()
+"import sys
+
+
+def prev(n):
+    dev3 = n // 3 if n % 3 == 0 else 0
+    dev2 = n // 2 if n % 2 == 0 else 0
+    return (dev3, dev2, n - 1)
+
+
+def calc_step(n):
+    d = [1e6] + [0] * n
+    for i in range(2, n + 1):
+        d[i] = min(d[prev(i)[0]], d[prev(i)[1]], d[prev(i)[2]]) + 1
+    return d
+
+
+def restore_chain(a, n, k):
+    b = [n]
+    for i in range(k, 0, -1):
+        n = [j for j in prev(n) if a[j] == i - 1][0]
+        b.insert(0, n)
+    return b
+
+
+def main():
+    n = next(int(line) for line in sys.stdin)
+    lst = calc_step(n)
+    print(lst[n])
+    print(*restore_chain(lst, n, lst[n]))
+
+
+if __name__ == '__main__':
+    main()
+"import sys
+
+
+def binary_search(a, d, x):
+    l, r = 0, len(d) - 1
+    while l <= r:
+        m = l + (r - l) // 2
+        if a[d[m]] < x:
+            r = m - 1
+        elif a[d[m]] >= x:    
+            l = m + 1
+    return l
+
+
+def restoreindex(r, k, n):
+    res = [k + 1]
+    for i in range(n - 1):
+        res.insert(0, r[k] + 1)
+        k = r[k]
+    return res
+
+
+def lds_nlogn(a, n):
+    d = [0]
+    r = [-1] * n
+    for i in range (1, n):
+        if a[i] <= a[d[-1]]:
+            r[i] = d[-1]
+            d += [i]
+        elif a[i] > a[d[0]]:
+            d[0] = i
+        else:
+            j = binary_search(a, d, a[i])
+            d[j] = i
+            r[i] = d[j - 1]
+    return restoreindex(r, d[-1], len(d))
+
+
+def main():
+    reader = (tuple(map(int, line.split())) for line in sys.stdin)
+    n, = next(reader)
+    lst = next(reader)
+    seq = lds_nlogn(lst, n)
+    print(len(seq))
+    print(*seq)
+
+
+if __name__ == '__main__':
+    main()
+"import numpy as np
+
+
+a = 2 * np.eye(3, 4, dtype='int') + np.eye(3, 4, 1, dtype='int')
+print(a)
+"import numpy as np, sys
+
+
+def matrix(r):
+    shape = tuple(next(r))
+    return np.fromiter(next(r), np.int).reshape(shape)
+
+
+def main():
+    reader = (map(int, line.split()) for line in sys.stdin)
+    try:
+        print(np.dot(matrix(reader), matrix(reader).T))
+    except:
+        print('matrix shapes do not match')  
+
+
+if __name__ == '__main__':
+    main()
+,
+from urllib.request import urlopen
+import numpy as np, sys
+
+
+def main():
+    file = urlopen(sys.stdin.read())
+    X = np.mat(np.loadtxt(file, skiprows=1, delimiter="

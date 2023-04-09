@@ -1,0 +1,314 @@
+"# Квадрат из чисел, закрученных по спирали
+
+# Создаём таблицу n * n из нулей
+n = int(input())
+table = [[0 for i in range(n)] for j in range(n)]
+table[0] = [i for i in range(1, n + 1)]   # Заполнили первую строку
+
+x, y = n - 1, 0     # Текущие координаты ячейки спирали
+current = n         # Текущее значение ячейки спирали
+dx, dy = 0, 1       # Направление вектора спирали
+
+# Забиваем таблицу убывающей последовательностью
+for k in range(n - 1, 0, -1):
+    for j in range(2):
+        for i in range(k):
+            current += 1
+            x += dx
+            y += dy
+            table[y][x] = current
+        # Поворотики (лучше бы сделал через тригонометрию)
+        if dy == 1: dx, dy = -1, 0
+        elif dx == 1: dx, dy = 0, 1
+        elif dy == -1: dx, dy = 1, 0
+        elif dx == -1: dx, dy = 0, -1
+
+# Печать таблицы
+for x in range(n):
+    for y in range(n):
+        print(table[x][y], end=' ')
+    print()
+"dict1, dict2, s1, s2 = (input() for i in range(4))   # Считали данные
+
+def code (d1, d2, s):   # Кодирующая функция
+    sc = ''    
+    for char in s:
+        sc += d2[d1.index(char)]
+    return sc
+
+print(code(dict1, dict2, s1))
+print(code(dict2, dict1, s2))
+"d = int(input())
+dict = {input().lower() for i in range(d)}   # Считали множество слов для проверки орфгграфии
+
+words = set()                    # Множество для всех слов текста
+for i in range(int(input())):    # Цикл для ввода d строчек текста
+    words.update(s.lower() for s in input().split())   # Добавляем слова в множество всего документа
+
+print(*(words - dict), sep='\n')   # Напечатали разницу двух множеств (множества всех слов и множества слов словаря
+,
+x, y = 0, 0
+
+for i in range(int(input())):   # Цикл для вводимых черепашке команд
+    s = input().split()         # Вводим команду
+    direction, steps = s[0], int(s[1])   # Преобразуем в направление и количество шагов
+    if direction == 'север': y += steps
+    if direction == 'юг': y -= steps
+    if direction == 'восток': x += steps
+    if direction == 'запад': x -= steps
+
+print(x, y)
+"db = {'': [], 'global': ['', set()]}
+
+
+def name_from(variable, namespace):
+    if namespace == '':
+        return None
+    if variable in db[namespace][1]:
+        return namespace
+    return name_from(variable, db[namespace][0])
+
+
+for i in range(int(input())):
+    cmd, namespace, arg = input().split()
+
+    if cmd == 'create':
+        parent = arg
+        db[namespace] = [parent, set()]
+
+    if cmd == 'add':
+        variable = arg
+        db[namespace][1].add(variable)
+
+    if cmd == 'get':
+        variable = arg
+        s = name_from(variable, namespace)
+        print(s)
+"class Buffer:
+    def __init__(self):
+        self.buf = []
+
+    def add(self, *a):
+        self.buf += a
+        for i in range(len(self.buf) // 5):
+            print(sum([self.buf.pop(0) for i in range(5)]))
+
+    def get_current_part(self):
+        return self.buf
+"import datetime
+
+d = datetime.date(*map(int, (input().split())))
+d += datetime.timedelta(int(input()))
+print(d.year, d.month, d.day)
+,
+s, a, b = input(), input(), input()
+cnt = 0
+
+while s.find(a) != -1 and cnt <= 1000:
+    s = s.replace(a, b)
+    cnt += 1
+
+print(cnt if cnt <= 1000 else 'Impossible')
+"s, t = input(), input()
+cnt = 0
+
+for index in range(len(s)):
+    if s.startswith(t, index):
+        cnt += 1
+print(cnt)
+"import sys
+import re
+
+
+def new_str(matchobj):
+    res = matchobj.group(0)
+    return res[1::-1] + res[2:]
+
+
+for line in sys.stdin:
+    line = line.rstrip()
+    print(re.sub(r'(\b\w{2,}\b)', new_str, line))
+"import requests
+import re
+
+
+def find_way(source, target, depth=2):
+    if depth == 0:
+        return False
+
+    res = requests.get(source)
+    if res.status_code != 200:
+        return False
+
+    links = re.findall(r'<a href=""(.*?)"".*>.*<\/a>', res.text)
+    if target in links and depth == 1:
+        return True
+
+    for link in links:
+        if find_way(link, target, depth - 1):
+            return True
+        
+    return False
+
+
+s, t = input(), input()
+print('Yes' if find_way(s, t) else 'No')
+"import requests, re
+
+sites = set(re.findall(r'<a.*href ?= ?[\'|\""](?:[\w\d\-\.]*\:\/\/)?(\w[\w\d\-\.]*)', requests.get(input()).text))
+for site in sorted(sites):
+    print(site)
+,
+n1, n2 = 1, 1
+for i in range(2, int(input())):
+    n2, n1 = n1 + n2, n2
+print(n2)
+"def gcd(a, b):
+    if a == 0 or b == 0:
+        return a + b
+    return gcd(max(a, b) % min(a, b), min(a, b))
+
+def main():
+    a, b = map(int, input().split())
+    print(gcd(a, b))
+
+
+if __name__ == ""__main__"":
+    main()
+"# Вводим предметы
+n, w = map(int, input().split())
+items = []
+for i in range(n):
+    ci, wi = map(int, input().split())
+    k = ci / wi
+    items.append([ci, wi, k])
+
+# Надёжный шаг - взять предмет с самой дорогой стоимостью за единицу веса
+
+# Но для начала сортировочка
+items.sort(key=lambda x: x[2], reverse=True)
+
+# Теперь основная часть
+cnt = 0
+summ = 0
+for i in range(n):
+    ci = items[i][0]
+    wi = items[i][1]
+    if cnt < w:
+        if cnt + wi <= w:
+            cnt += wi
+            summ += ci
+        else:
+            summ += ci * (w - cnt) / wi
+            cnt = w
+
+print('%.3f' % summ)
+"# Принимаем строку
+str = input()
+
+# Вычисляем статистику символов
+stats = {}
+for s in str:
+    if s not in stats:
+        stats[s] = 1
+    else:
+        stats[s] += 1
+tree = list(stats.items())
+
+# Строим дерево
+while len(tree) > 1:
+    tree.sort(key=lambda i: i[1], reverse=True)
+    ltree = tree.pop()
+    rtree = tree.pop()
+    node = [[ltree[0], rtree[0]], ltree[1] + rtree[1]]
+    tree.append(node)
+tree = tree[0][0]   # Убрали теперь уже ненужные веса
+
+
+def bcode(tree, symbol):
+    # Функция обхода дерева, возвращает код символа
+    if type(tree) is not list:
+        return ''
+    lchild = tree[0]
+    rchild = tree[1]
+    if lchild == symbol:
+        return '0'
+    elif rchild == symbol:
+        return '1'
+    else:
+        l = bcode(lchild, symbol)
+        r = bcode(rchild, symbol)
+        if l != '':
+            return '0' + l
+        if r != '':
+            return '1' + r
+        return ''
+
+
+# Создаём таблицу кодов
+codes = dict()
+for s in stats.keys():
+    code = bcode(tree, s)
+    codes[s] = code
+if tree == s:   # На случай, если строка состоит всего из 1 символа
+    codes[s] = '1'
+
+# Кодируем строку
+result = ''
+for s in str:
+    result += codes[s]
+
+# Выводим всё на печать
+print(len(codes), len(result))
+for s in codes:
+    print(s + ':', codes[s])
+print(result)
+"# Очередь с приоритетами
+ops = int(input())
+btree = []
+
+
+def sift_up(i_el):
+    # Просеивание элемента с индексом i_el вверх к корню
+    if i_el == 0:
+        return
+    i_father = (i_el - 1) // 2
+    if btree[i_el] > btree[i_father]:
+        btree[i_el], btree[i_father] = btree[i_father], btree[i_el]
+        sift_up(i_father)
+
+
+def sift_down(i_el):
+    # Просеивание элемента с индексом i_el вниз
+    i_left, i_right = 2 * i_el + 1, 2 * i_el + 2
+    if i_left >= len(btree):   # если элемент и так уже внизу, то конец
+        return
+    guess = i_left
+    if i_right < len(btree) and btree[i_right] > btree[i_left]:
+        guess = i_right
+    if btree[i_el] < btree[guess]:
+        btree[i_el], btree[guess] = btree[guess], btree[i_el]
+    sift_down(guess)
+
+
+def insert(p):
+    btree.append(p)   # добавили в конец массива
+    sift_up(len(btree) - 1)   # просеиваем последний элемент вверх
+
+
+def extract_max():
+    el = btree[0]
+    if len(btree) == 1:
+        btree.pop()
+    else:
+        btree[0] = btree.pop()   # положили последний элемент в корень
+        sift_down(0)   # просеили его вниз
+    return el
+
+
+for _ in range(ops):
+    s = input()
+    if s == 'ExtractMax':
+        print(extract_max())
+    else:
+        insert(int(s.lstrip('Insert ')))

@@ -1,0 +1,85 @@
+"n=int(input())
+teams={}
+for i in range(n):
+    temp=input().split(';')
+    if temp[0] in teams:
+        teams[temp[0]][0]+=1
+    else:
+        teams[temp[0]]=[1, 0, 0, 0, 0]
+    if temp[2] in teams:
+        teams[temp[2]][0]+=1
+    else:
+        teams[temp[2]]=[1, 0, 0, 0, 0]
+    if temp[1]==temp[3]:
+        teams[temp[0]][2]+=1
+        teams[temp[0]][4]+=1
+        teams[temp[2]][2]+=1
+        teams[temp[2]][4]+=1
+    elif temp[1]>temp[3]:
+        teams[temp[0]][1]+=1
+        teams[temp[0]][4]+=3
+        teams[temp[2]][3]+=1
+    else:
+        teams[temp[0]][3]+=1
+        teams[temp[2]][4]+=3
+        teams[temp[2]][1]+=1
+for k, v in teams.items():
+    print(k, ' '.join(list(map(str, v))), sep=':')
+"abc1, abc2, word1_1, word2_2 = input(), input(), input(), input()
+tr1_2=str.maketrans(abc1, abc2)
+tr2_1=str.maketrans(abc2, abc1)
+word1_2=word1_1.translate(tr1_2)
+word2_1=word2_2.translate(tr2_1)
+print(word1_2, word2_1, sep='\n')
+"n=int(input())
+dic=[input().lower() for i in range(n)]
+m=int(input())
+a=sum([input().lower().split() for i in range(m)], [])
+ans=set(filter(lambda x: x not in dic, a))
+print('\n'.join(ans))
+"ans=[0, 0]
+for i in range(int(input())):
+    temp=input().split()
+    if temp[0]=='север':
+        ans[1]+=int(temp[1])
+    if temp[0]=='запад':
+        ans[0]-=int(temp[1])
+    if temp[0]=='юг':
+        ans[1]-=int(temp[1])
+    if temp[0]=='восток':
+        ans[0]+=int(temp[1])
+print(*ans)
+print(float(input())%1),
+try:
+    line=input().split()
+    print(*line[1::2][::-1])
+except EOFError:
+    pass
+"time=int(input())
+print(':'.join([str((time//3600)%24), ('0'+str((time//60)%60))[-2:], ('0'+str(time%60))[-2:]]))
+print(input()[-1]),
+print(eval('+'.join(input().split()))),
+from math import ceil
+arr=[int(input()), int(input()), int(input())]
+print(sum([ceil(i/2) for i in arr]))
+print(len(input().split())),
+print(sum(list(map(int, input().split()))))
+"print(input().split(', ')[1])
+"print(sum(list(map(int, filter(lambda x: x.isdigit(), input().split())))))
+"weekdays = [""Sunday"
+""Monday"
+""Tuesday"
+""Wednesday"
+""Thursday"
+""Friday"
+""Saturday""]
+leave=input()
+d=int(input())
+l = weekdays.index(leave)
+# l is the numeric version of which day
+# d is the number of days until return
+
+# Enter your formula for calculating the return day
+r=(l+d)%7
+
+print(""If you leave on {} and return {} days later, you will return on {}."".format(leave,d,weekdays[r]))

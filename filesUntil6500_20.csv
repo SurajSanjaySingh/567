@@ -1,0 +1,200 @@
+"class Node:
+    def __init__(self, value):
+        self.value = self.sum = value
+        self.left = self.right = self.parent = None
+
+def update(node):
+    if node is not None: 
+        node.sum = node.value + (node.left.sum if node.left is not None else 0) + (node.right.sum if node.right is not None else 0)
+        for child in [node.left,node.right]:
+            if not child is None: 
+                child.parent = node
+
+def rotation(node):
+    if node.parent is not None: 
+        parent = node.parent
+        grandparent = node.parent.parent
+        if parent.left == node:
+            node.right, parent.left = parent, node.right
+        else:
+            node.left, parent.right = parent, node.left
+        node.parent, parent.parent = parent.parent, node
+        update(parent)
+        update(node)
+        if grandparent is not None:
+            if grandparent.left == parent:
+                grandparent.left = node
+            else:
+                grandparent.right = node
+
+def splay(node):
+    if node is not None: 
+        while node.parent is not None:
+            if node.parent.parent is None:
+                rotation(node)
+                break
+            if ((node.parent.left == node and node.parent.parent.left == node.parent) 
+                or (node.parent.right == node and node.parent.parent.right == node.parent)):
+                rotation(node.parent)
+                rotation(node)
+            else:
+                rotation(node)
+                rotation(node)
+        return node
+    return None
+
+def find(node, value):
+    result = False
+    while node is not None:
+        if node.value == value:
+            result = True
+            break
+        if node.value > value and  node.left is not None:
+            node = node.left
+            continue
+        if node.value < value and  node.right is not None:
+            node = node.right
+            continue
+        else: break
+    node = splay(node)
+    return  result, node
+
+def split(node, value):
+    if node is None:
+        return None, None
+    _, node = find(node, value)
+    if node.value >= value: 
+        left, node.left = node.left, None
+        update(node)
+        if left is not None:
+            left.parent = None
+        return left, node
+    if node.value < value:
+        right, node.right = node.right, None
+        update(node)
+        if right is not None:
+            right.parent = None
+        return node, right
+    
+def merge(left, right):
+    if right == None:
+        return left
+    if left == None:
+        return right
+    _, right = find(right, left.value)
+    right.left, left.parent = left, right
+    update(right)
+    return right
+
+def insert(node, value):
+    left, right = split(node, value)
+    if right is not None and right.value == value:
+        return merge(left, right)
+    node = Node(value)   
+    node.left, node.right = left, right
+    update(node)
+    return node
+
+def delete(node, value):
+    left, right = split(node, value)
+    if right is not None and right.value == value:
+        right = right.right
+        if right is not None:
+            right.parent = None
+    return merge(left, right)
+    
+def summa(node, start, end):
+    _sum = 0
+    left, middle = split(node, start)
+    middle, right = split(middle, end)
+    if middle is not None:
+        _sum = middle.sum
+    if right is not None and right.value == end:
+        _sum += end
+    node = merge(left, merge(middle, right))
+    return node, _sum
+
+DIVISOR = 10 ** 9 + 1
+last_result, tree = 0, None
+
+def _hash(num, last_result):
+    return (num + last_result) % DIVISOR
+
+for i in range(int(input())):
+    line = input()
+    if line.startswith(""s""):
+        start, end = map(int, line.split()[1:])
+        tree, result = summa(tree, _hash(start, last_result), _hash(end, last_result))
+        print(result)
+        last_result = result % DIVISOR
+    else:
+        command, num = line.split()
+        num = _hash(int(num), last_result)
+        if command == ""+"":
+            tree = insert(tree, num)
+        elif command == ""-"":
+            tree = delete(tree, num)
+        else:
+            result, tree = find(tree, num)
+            print('Found' if result else 'Not found')
+"in_string, num = input(), ''
+for sym in in_string:
+    if sym.isdigit():
+        num = num + sym
+        continue
+    print(sym * int(num if num else 1), end = '')
+    num = ''
+"from itertools import permutations
+
+n, k = (int(i) for i in input().split())
+for item in permutations(range(n), k):
+    print(*item)
+"from skimage.io import imread, imsave
+
+
+def paint_central_pixel(in_file, out_file, color):
+""""
+    The function changes the color of the central pixel and writes it to a new file.
+    The dimensions of the input image must be odd. Input format: 
+    in_file, out_file - string (image file names), color - list (color in rgb format)
+""""
+    img = imread(in_file)
+    x, y, _ = (i//2 for i in img.shape)
+    img[x, y] = color
+    imsave(out_file, img)
+    
+if __name__ == ""__main__"":
+    color = [102, 204, 102]
+    in_file, out_file = ""img.png"
+""out_img.png"
+    paint_central_pixel(in_file, out_file, color)
+"from skimage.io import imread, imsave
+
+
+def paint_central_rectangle(in_file, out_file, color, size):
+""""
+    The function draws a rectangle in the center of the image and writes a new image to a file.
+    The dimensions of the input image and the rectangle must be odd.
+    Input format: size - list (the size of the rectangle),
+    in_file, out_file - string (image file names), color - list (color in rgb format)
+""""
+    img = imread(in_file).copy()
+    x, y, _ = (i//2 for i in img.shape)
+    x_delta, y_delta = (i//2 for i in size)
+    img[x - x_delta:x + x_delta +1, y - y_delta:y + y_delta +1] = color
+    imsave(out_file, img)
+    
+if __name__ == ""__main__"":
+    color, size = [255, 192, 203], [7, 15]
+    in_file, out_file = ""img.png"
+""out_img.png"
+    paint_central_rectangle(in_file, out_file, color, size)
+"from itertools import product
+from skimage.io import imread, imshow
+import numpy as np
+
+
+def get_size_border(file_name):
+""""
+    The function takes the name of the image file. 
+    Returns a tuple with the frame dimensions (left, top, right, bottom).

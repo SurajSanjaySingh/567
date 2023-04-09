@@ -1,0 +1,315 @@
+a = int(input())
+b = int(input())
+c = int(input())
+if a >= b and a >= c:
+    print(a)
+    if b < c:
+        print(b)
+        print(c)
+    else:
+        print(c)
+        print(b)
+if b > a and b >= c:
+    print(b)
+    if a < c:
+        print(a)
+        print(c)
+    else:
+        print(c)
+        print(a)
+if c > a and c > b:
+    print(c)
+    if a < b:
+        print(a)
+        print(b)
+    else: 
+        print(b)
+        print(a)
+"n = int(input())
+if n <= 10:
+    if n == 1:
+        print(n, 'программист')
+    if 2 <= n <= 4:
+        print(n, 'программиста')
+    if 5 <= n <= 10:
+        print(n, 'программистов')
+    if n == 0:
+        print(n, 'программистов')
+else: 
+    if (n % 10 == 0) or (11 <= (n % 100 // 1) <= 14 ):
+        print(n, 'программистов')
+        # x % 100 // 1 -- так находятся две последние цифры
+    if n % 10 == 1 and (n % 100 // 1) != 11:
+        print(n, 'программист')
+    if (2 <= (n % 10) <= 4) and (n % 100 // 10) != 1:
+        print(n, 'программиста')
+        # x % 100 // 10 -- так находится предпоследняя цифра
+    if 5 <= (n % 10) <= 10:
+        print(n, 'программистов')
+"tNumber = str(input())
+'''Оператор извлечения среза: [X:Y]. X – начало среза, а Y – окончание; 
+символ с номером Y в срез не входит. По умолчанию первый индекс равен 0, а второй - длине строки. '''
+if int(tNumber[0]) + int(tNumber[1]) + int(tNumber[2]) == int(tNumber[3]) + int(tNumber[4]) + int(tNumber[5]):
+    print('Счастливый')
+else: 
+    print('Обычный')
+"a = int(input())
+sum = 0
+while a != 0:
+        sum += a
+        a = int(input())
+print(sum)
+"a, b = int(input()), int(input())
+d = max(a,b) #функция поиска максимального числа
+while d % b != 0 or d % a != 0:
+    d += 1
+print(d)
+"a = int(input())
+while a >= 0 or a <= 0:
+    if a < 10:
+        a = int(input())
+    if a > 100:
+        break
+    if a>= 10:
+        print(a)
+        a = int(input())
+"a = int(input()) 
+b = int(input())
+c = int(input())
+d = int(input()) 
+for i in range(c, d+1):
+    print('\t', i, end='')  # отрисовывает первую строку с-d
+print()
+for i in range(a, b+1):
+    print(i, end='')  # 1. это начинает новую строку a-b, end='' припятствует переводу строки
+    for j in range(c, d+1):
+        print('\t', i*j, end='')  # 2. отрисовывает каждое произведение с отступом
+    print()  # 3. переводит строку, переход к 1.
+"a = int(input()) 
+b = int(input())
+so = 0
+k = 0
+for i in range(a, b+1):  # не забываем про +1 для интервала
+    if i % 3 == 0:
+#        print(i)
+        so = i + so
+#        print(so)
+        k += 1  # счетчик итераций
+"""""        print(k)
+        print(___)"""""
+print(so/k)
+"genome = str(input())
+g = int(genome.upper().count('G'))
+c = int(genome.upper().count('C'))
+length = len(genome)
+print(((g + c) / length) * 100)
+"genome = str(input())
+line = ''
+if len(genome) == 1:
+    print(genome + '1')
+else:
+    i = 0
+    while i < len(genome) - 1:  # len(genome) - 1 — это последний сим.
+        if genome[i] == genome[i + 1]:
+            counter = 1
+            fragment = genome[i]
+            while genome[i] == genome[i + 1]:
+                counter += 1
+                i += 1
+                if i == len(genome) - 1:
+                    break    
+            line += fragment + str(counter)
+            continue
+            if i == len(genome) - 1:
+                break
+        if i != len(genome) - 1:
+            if genome[i] != genome[i+1] and genome[i] != genome[i-1]:
+                line += genome[i] + '1'
+                i += 1
+                if i == len(genome) - 1:
+                    continue    
+            if genome[i] != genome[i+1] and genome[i] == genome[i-1]:
+                i += 1
+                continue
+    if i == len(genome) - 1:
+        if genome[i] != genome[i-1]:
+            line += genome[i] + '1'
+        if genome[i] == genome[i-1]:
+            line = line
+print(line)
+"a = [int(i) for i in input().split()]
+print(sum(a))
+"a = [int(i) for i in input().split()]
+i = 0
+strings = ''
+if len(a) == 1:
+    print(a[0])
+while i < len(a) - 1:
+    if i == 0:
+        print(str(a[-1] + a[1]) + ' ', end = '') 
+        i += 1
+    if i > 0 and i != len(a) - 1:
+        print(str(a[i-1] + a[i+1]) + ' ', end = '')
+        i += 1
+    if i == len(a) - 1:
+        print(str(a[i-1] + a[0]))
+        i +=1
+"firstList = [str(i) for i in input().split()]
+firstList.sort()
+newList = []
+answer = ''
+j = 0
+while j < len(firstList) - 1:
+    if firstList[j] == firstList[j+1] or firstList[j] == firstList[j-1]:
+        if firstList[j] not in newList:
+            newList += [firstList[j]]
+            j += 1
+        if firstList[j] in newList:
+            j += 1
+        if j == len(firstList) - 1:
+            break
+    else:
+        j += 1
+    if j == len(firstList) - 1:
+        break
+answer = ' '.join(newList)
+print(answer)
+"n = int(input())
+i = 1
+answer = []
+while i <= n:
+    a = [str(i) for j in range(i)]
+    answer += a
+    i += 1
+stringForAnswer = ' '.join(answer[:n])
+print(stringForAnswer)
+"lst = [i for i in input().split()]
+x = input()
+if x not in lst:
+    print('Отсутствует')
+if x in lst:
+    j = 0
+    while j <= len(lst) - 1:
+        if lst[j] == x:
+            print(j, end=' ')
+            j += 1
+        else:
+            j += 1
+"a = input().split()
+matrix = []
+while True:
+    if a != ['end']:
+        a = [int(i) for i in a]
+        matrix.append(a)
+        a = input().split()
+    if a == ['end']:
+        break
+rows = len(matrix)  # строки
+cols = len(matrix[0]) # колонки
+i = 0
+j = 0
+while i <= rows - 1: # самая нижняя строка
+    while j <= cols - 1:  # самый правый столбец
+        if j != cols - 1 and i != rows - 1:  # некрайние нигде, вроде работает
+            above = matrix[i - 1][j]
+            right = matrix[i][j + 1]
+            left = matrix[i][j - 1]
+            below = matrix[i + 1][j]
+            summA = above + below + left + right
+            print(summA, end = ' ')
+            j += 1
+            if j == cols - 1:
+                continue 
+        if j != cols - 1 and i == rows - 1:  # не-правый нижний 
+            above = matrix[i - 1][j]
+            left = matrix[i][j - 1]
+            below = matrix[0][j]  # верхняя в противоположной
+            right = matrix[i][j + 1]
+            summA = above + below + left + right
+            print(summA, end = ' ')
+            j += 1
+            if j == cols - 1:
+                continue
+        if j == cols - 1 and i != rows - 1:  # посл.столбец непоследней стр.
+            above = matrix[i - 1][j]
+            left = matrix[i][j - 1]
+            right = matrix[i][0]
+            below = matrix[i + 1][j]
+            summA = above + right + left + below
+            print(summA, end = ' ')
+            j += 1
+        if j == cols - 1 and i == rows - 1:
+            above = matrix[i - 1][j]
+            left = matrix[i][j - 1]
+            summA = above + matrix[0][j] + left + matrix[i][0]
+            print(summA, end = ' ')
+            break
+    j = 0
+    i += 1
+    print()
+"n = int(input())
+startN = n
+matrix = [[0 for j in range(n)] for i in range(n)]
+result = n ** 2
+a = 0  # накопитель значений для ячеек
+while a < result:
+    for j in range(n):  # движемся слева направо
+        i = -n
+        if matrix[i][j] == 0:
+            a += 1  
+            matrix[i][j] += a
+            if matrix[i][j] == result:
+                break
+    for i in range(n):  # движемся сверху вниз
+        if matrix[i][j] == 0:
+            a += 1 
+            matrix[i][j] += a
+            if matrix[i][j] == result:
+                break
+    if i == n - 1:  # движемся справа налево
+        while j >= 0:
+            if matrix[i][j] == 0:
+                a += 1  
+                matrix[i][j] += a
+                j -= 1
+            elif matrix[i][j] == result:
+                break
+            else: 
+                j -= 1
+    if j < 0:  # движемся снизу вверх
+        j = -n
+        while i >= 0:
+            if matrix[i][j] == 0:
+                a += 1  
+                matrix[i][j] += a
+                i -= 1
+            elif matrix[i][j] == result:
+                break
+            else: 
+                i -= 1
+    n -= 1    
+for i in range(startN):  # переходим к печати
+    for j in range(startN):
+        print(matrix[i][j], end=' ')
+    print()
+"def modify_list(l):
+    i = 0
+    while i < len(l):
+        if l[i] % 2 != 0:
+            l[i] = 'K'
+            i += 1
+            if i >= len(l):
+                break
+        if l[i] % 2 == 0:
+            l[i] = int(l[i] // 2)
+            i += 1
+            if i >= len(l):
+                break
+    if 'K' in l:
+        if l.count('K') == len(l):
+            l.clear()
+        else:
+            while True:
+                l.remove('K')
+                if 'K' not in l:
+                    break

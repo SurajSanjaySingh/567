@@ -1,0 +1,367 @@
+    def __init__(self, parent):
+        self.parent = parent
+
+    def find_set(self, x):
+        if x != self.parent[x]:
+            self.parent[x] = self.find_set(self.parent[x])
+        return self.parent[x]
+
+    def union_set(self, dest, source):
+        _dest = self.find_set(dest)
+        _source = self.find_set(source)
+        if _dest != _source:
+            self.parent[_source] = _dest
+        return self.parent[_source]
+
+
+def main():
+    n, e, d = map(int, input().split("" ""))
+    equality = [[*map(int, input().split())] for i in range(e)]
+    comparison = [[*map(int, input().split())] for i in range(d)]
+    dsu = DSU(list(i for i in range(n + 1)))
+    for eq in equality:
+        dsu.union_set(eq[0], eq[1])
+    for com in comparison:
+        if dsu.find_set(com[0]) == dsu.find_set(com[1]):
+            print(0)
+            exit()
+    print(1)
+
+
+if __name__ == ""__main__"":
+    main()
+"# put your python code here
+class PhoneBook:
+    def __init__(self):
+        self._dict = dict()
+
+    def add_contact(self, number, name):
+        self._dict[number] = name
+
+    def del_contact(self, number):
+        if number in self._dict:
+            self._dict.pop(number)
+        else:
+            return
+
+    def find_contact(self, number):
+        if number in self._dict:
+            return self._dict[number]
+        else:
+            return ""not found"
+
+
+def main():
+    n = int(input().strip())
+    numbers = [[*map(str, input().strip().split("" ""))] for i in range(n)]
+    pb = PhoneBook()
+    for num in numbers:
+        if num[0] == ""add"":
+            pb.add_contact(num[1], num[2])
+        elif num[0] == ""del"":
+            pb.del_contact(num[1])
+        else:
+            print(pb.find_contact(num[1]))
+
+
+if __name__ == ""__main__"":
+    main()
+"# put your python code here
+class ChainHash:
+    def __init__(self, _dict):
+        self._dict = _dict
+        self.x = 263
+        self.mod = 1000000007
+
+    def pow(self, degree):
+        if degree == 0:
+            return 1
+        elif degree == 1:
+            return self.x
+        elif degree % 2 == 0:
+            result = self.pow(degree / 2)
+            return (result * result) % self.mod
+        else:
+            return (self.pow(degree - 1) * self.x) % self.mod
+
+    def calc_hash(self, string):
+        _hash = 0
+        for i in range(len(string)):
+            _hash += ((ord(string[i]) * self.pow(i)) % self.mod)
+        return _hash % self.mod % len(self._dict)
+
+    def add_string(self, string):
+        if self.find_string(string) == ""yes"":
+            return
+        else:
+            self._dict[self.calc_hash(string)].insert(0, string)
+
+    def del_string(self, string):
+        if self.find_string(string) == ""yes"":
+            self._dict[self.calc_hash(string)].remove(string)
+
+    def find_string(self, string):
+        if string in self._dict[self.calc_hash(string)]:
+            return ""yes"
+        else:
+            return ""no"
+
+    def check_string(self, i):
+        print(*self._dict[i])
+
+
+def main():
+    m = int(input().strip())
+    n = int(input().strip())
+    requests = [[*map(str, input().strip().split("" ""))] for i in range(n)]
+    c = ChainHash({i: [] for i in range(m)})
+    for req in requests:
+        if req[0] == ""add"":
+            c.add_string(req[1])
+        elif req[0] == ""del"":
+            c.del_string(req[1])
+        elif req[0] == ""find"":
+            print(c.find_string(req[1]))
+        else:
+            c.check_string(int(req[1]))
+
+
+if __name__ == ""__main__"":
+    main()
+"# put your python code here
+class Hash:
+    def __init__(self):
+        self.x = 263
+        self.mod = 1000000007
+        self.result = list()
+
+    def pow(self, degree):
+        if degree == 0:
+            return 1
+        elif degree == 1:
+            return self.x
+        elif degree % 2 == 0:
+            result = self.pow(degree / 2)
+            return (result * result) % self.mod
+        else:
+            return (self.pow(degree - 1) * self.x) % self.mod
+
+    def calc_hash(self, string):
+        _hash = 0
+        for i in range(len(string)):
+            _hash += ((ord(string[i]) * self.pow(i)) % self.mod)
+        return _hash % self.mod
+
+    def rolling_hash(self, prev_hash, left, right, pow_right):
+        return ((prev_hash - (right * pow_right) % self.mod) * self.x + left) % self.mod
+
+    def implementation(self, pattern, text):
+        self.result.clear()
+        size = len(pattern)
+        if pattern == text:
+            return [0]
+        pattern_hash = self.calc_hash(pattern)
+        window_hash = self.calc_hash(text[-size:])
+        pow_right = self.pow(size - 1)
+        i = len(text) - size
+        while True:
+            if window_hash == pattern_hash and text[i] == pattern[0] and text[i + size - 1] == pattern[-1]:
+                self.result += [i]
+            i -= 1
+            if i < 0:
+                break
+            window_hash = self.rolling_hash(window_hash, ord(text[i]), ord(text[i + size]), pow_right)
+        return self.result
+
+
+def main():
+    h = Hash()
+    print(*reversed(h.implementation(input().strip(), input().strip())))
+
+if __name__ == ""__main__"":
+    main()
+"# put your python code here
+class BinaryTree:
+    def __init__(self, tree):
+        self.tree = tree
+        self.result = list()
+
+    def in_order(self, node):
+        if node == -1:
+            return
+        self.in_order(self.tree[node][""left""])
+        self.result.append(self.tree[node][""key""])
+        self.in_order(self.tree[node][""right""])
+        return self.result
+
+    def pre_order(self, node):
+        if node == -1:
+            return
+        self.result.append(self.tree[node][""key""])
+        self.pre_order(self.tree[node][""left""])
+        self.pre_order(self.tree[node][""right""])
+        return self.result
+
+    def post_order(self, node):
+        if node == -1:
+            return
+        self.post_order(self.tree[node][""left""])
+        self.post_order(self.tree[node][""right""])
+        self.result.append(self.tree[node][""key""])
+        return self.result
+
+    def implementation(self):
+        print(*self.in_order(0))
+        self.result.clear()
+        print(*self.pre_order(0))
+        self.result.clear()
+        print(*self.post_order(0))
+
+
+def main():
+    tree = list()
+    n = (int(input()))
+    for node in range(n):
+        tree.append({""key"": None, ""left"": None, ""right"": None})
+        tree[node][""key""], tree[node][""left""], tree[node][""right""] = [int(i) for i in input().strip().split("" "")]
+    t = BinaryTree(tree)
+    t.implementation()
+
+
+if __name__ == ""__main__"":
+    main()
+"# put your python code here
+import sys
+sys.setrecursionlimit(10000000)
+class BinaryTree:
+    def __init__(self, tree):
+        self.tree = tree
+        self.result = list()
+
+    def in_order(self, node):
+        if node == -1:
+            return
+        self.in_order(self.tree[node][""left""])
+        self.result.append(self.tree[node][""key""])
+        self.in_order(self.tree[node][""right""])
+        return self.result
+
+    def implementation(self):
+        if len(self.tree) == 0 or len(self.tree) == 1:
+            return ""CORRECT"
+        res = self.in_order(0)
+        for i in range(len(res) - 1):
+            if res[i] > res[i + 1]:
+                return ""INCORRECT"
+        return ""CORRECT"
+
+
+def main():
+    tree = list()
+    n = (int(input()))
+    for node in range(n):
+        tree.append({""key"": None, ""left"": None, ""right"": None})
+        tree[node][""key""], tree[node][""left""], tree[node][""right""] = [int(i) for i in input().strip().split("" "")]
+    t = BinaryTree(tree)
+    print(t.implementation())
+
+
+if __name__ == ""__main__"":
+    main()
+"import sys
+
+sys.setrecursionlimit(100000)
+
+
+class BinaryTree:
+    def __init__(self, tree):
+        self.tree = tree
+        self.result = list()
+        self.min = -2 ** 31
+        self.max = 2 ** 31
+        if len(tree) > 0:
+            self.root = tree[0][""key""]
+
+    def in_order(self, node, _min, _max):
+        if node == -1:
+            return
+        if _min <= self.tree[node][""key""] < _max:
+            pass
+        else:
+            self.result.append(""inc"")
+            return
+        self.in_order(self.tree[node][""left""], _min, self.tree[node][""key""])
+        self.in_order(self.tree[node][""right""], self.tree[node][""key""], _max)
+
+    def implementation(self):
+        if len(self.tree) == 0 or len(self.tree) == 1:
+            return ""CORRECT"
+        self.in_order(self.tree[0][""left""], self.min, self.root)
+        self.in_order(self.tree[0][""right""], self.root, self.max)
+        if ""inc"" not in self.result:
+            return ""CORRECT"
+        else:
+            return ""INCORRECT"
+
+
+def main():
+    tree = list()
+    n = (int(input()))
+    for node in range(n):
+        tree.append({""key"": None, ""left"": None, ""right"": None})
+        tree[node][""key""], tree[node][""left""], tree[node][""right""] = [int(i) for i in input().strip().split("" "")]
+    t = BinaryTree(tree)
+    print(t.implementation())
+
+
+if __name__ == ""__main__"":
+    main()
+"# put your python code here
+import sys
+
+sys.setrecursionlimit(100000)
+
+
+class BinaryTree:
+    def __init__(self, tree):
+        self.tree = tree
+        self.result = list()
+        self.min = -2 ** 31
+        self.max = 2 ** 31
+        if len(tree) > 0:
+            self.root = tree[0][""key""]
+
+    def in_order(self, node, _min, _max):
+        if node == -1:
+            return
+        if _min < self.tree[node][""key""] < _max:
+            pass
+        else:
+            self.result.append(""inc"")
+            return
+        self.in_order(self.tree[node][""left""], _min, self.tree[node][""key""])
+        self.in_order(self.tree[node][""right""], self.tree[node][""key""], _max)
+
+    def implementation(self):
+        if len(self.tree) == 0 or len(self.tree) == 1:
+            return ""CORRECT"
+        self.in_order(self.tree[0][""left""], self.min, self.root)
+        self.in_order(self.tree[0][""right""], self.root, self.max)
+        if ""inc"" not in self.result:
+            return ""CORRECT"
+        else:
+            return ""INCORRECT"
+
+
+def main():
+    tree = list()
+    n = (int(input()))
+    for node in range(n):
+        tree.append({""key"": None, ""left"": None, ""right"": None})
+        tree[node][""key""], tree[node][""left""], tree[node][""right""] = [int(i) for i in input().strip().split("" "")]
+    t = BinaryTree(tree)
+    print(t.implementation())
+
+
+if __name__ == ""__main__"":
+    main()

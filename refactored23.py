@@ -1,0 +1,1 @@
+Unfortunately, as an AI language model, I cannot provide the refactored code without the original code. Please provide the original code for me to refactor.

@@ -1,0 +1,128 @@
+"from array import array
+q = array('Q') # unsigned long long
+N = 0
+
+def siftDown(index):
+    child1Index, child2Index = index * 2 + 1, index * 2 + 2
+    maxIndex = index
+    if child2Index < N:
+        if q[child2Index] > q[maxIndex]:
+            maxIndex = child2Index 
+    if child1Index < N:
+        if q[child1Index] > q[maxIndex]:
+            maxIndex = child1Index
+    if maxIndex != index:
+        q[index], q[maxIndex] = q[maxIndex], q[index]
+        siftDown(maxIndex)
+        
+def siftUp(index):
+    parentIndex = (index - 1) // 2
+    if parentIndex >= 0 and q[parentIndex] < q[index]:
+        q[parentIndex], q[index] = q[index], q[parentIndex]
+        siftUp(parentIndex)
+        
+def insert(x):
+    global N
+    q.append(x)
+    siftUp(N)
+    N += 1
+
+def extractMax():
+    global N
+    print(q[0])
+    q[0] = q[N - 1]
+    q.pop()
+    N -= 1
+    siftDown(0)
+
+for i in range(int(input())):
+    command = input()
+    if command[0] == 'I':
+        insert(int(command.split(' ')[1]))
+    else: 
+        extractMax()
+"import math
+max_subseq = dict()
+answer = 0
+input()
+for x in map(int, input().split()):
+    best_value = max_subseq.get(x, 0)
+    for i in range(math.floor(x**0.5), 0, -1):
+        if x % i == 0:
+            best_value = max(best_value, max_subseq.get(i, 0), max_subseq.get(x // i, 0))
+    max_subseq[x] = best_value + 1
+    answer = max(answer, best_value + 1)
+print(answer)
+"from functools import lru_cache
+W_, n_ = map(int, input().split())
+bars = [0] + [*map(int, input().split())]
+
+@lru_cache(maxsize=None)
+def result(W, n):
+    if n == 0: return 0
+    if n == 1: return bars[1] if W >= bars[1] else 0
+    return max(result(W, n-1), result(W-bars[n],n-1)+bars[n] if W-bars[n] >= 0 else 0)
+
+print(result(W_, n_))
+"from functools import lru_cache
+
+
+@lru_cache(maxsize=None)
+def edit_distance(A, B):
+    if len(A) > len(B):
+        A, B = B, A
+    i = 0
+    while i < len(A) and A[-i-1] == B[-i-1]:
+        i += 1
+    A, B = A[:len(A)-i], B[:len(B)-i]
+    if not A or not B: 
+        return len(A) + len(B)
+    temporary_result = edit_distance(A[:-1], B) + 1
+    temporary_result = min(temporary_result, edit_distance(A, B[:-1]) + 1)
+    temporary_result = min(temporary_result, edit_distance(A[:-1], B[:-1]) + 1)
+    return temporary_result
+
+
+print(edit_distance(input(), input()))
+"print(f""{input()}${input()}"")
+L = eval(input()),
+for i in range(0, int(input()), 2):
+    print(i**2)
+"n = int(input())
+for i in range(2, int(n ** (1/2))):
+    if n % i == 0:
+        print(i)
+        break
+"def dfactorial(n):
+    result = 1
+    for i in range(n % 2 + 2, n + 1, 2):
+        result *= i
+    return result
+"# import libraries
+from math import exp
+
+def def_e(x, prev=0):
+    dx = 0.1
+    while abs(abs(exp(x + dx) - exp(x))/dx - prev) > 0.0005:
+        prev = abs(exp(x + dx) - exp(x))/dx
+        dx /= 10
+    return round(prev, 3)
+"n = int(input()) # Input and convert to int
+res = sum(filter(lambda x: x % 5 == 0 and x % 3, range(1,n+1)))
+print(res)
+"def common(list_a, list_b):
+    return list(filter(lambda x: x in list_b, list_a))
+,
+n = int(input())
+def donuts(n):
+    return f""Всего пончиков: {n if n <=9 else 'много'}"
+
+print(donuts(n))
+"from json import dumps, loads
+L2 = loads(dumps(L1))
+"print(*df[[""age""]].describe().loc[[""count"
+""75%""]].values.ravel(), sep='\n')
+"from numpy import number
+
+print(*[f""{a}:{b:g}"" for a, b in df.select_dtypes(include=""number"").sum().items()], sep='\n')
+,

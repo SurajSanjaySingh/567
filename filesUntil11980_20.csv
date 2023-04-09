@@ -1,0 +1,314 @@
+"def get_winkey(goals1, goals2):
+    if goals1 == goals2:
+        return 'Ничьих'
+    elif goals1 > goals2:
+        return 'Побед'
+    else:
+        return 'Поражений'
+
+def add_new_team(team):
+    teams[team] = {'Всего_игр': 0, 'Побед': 0, 'Ничьих': 0, 'Поражений': 0, 'Всего_очков': 0}
+    
+def add_team_result(team, goals, winkey):
+    if team not in teams:
+        add_new_team(team)
+    
+    teams[team][winkey] += 1
+    teams[team]['Всего_игр'] += 1
+    teams[team]['Всего_очков'] += scoring[winkey]
+    
+def add_result(team1, goals1, team2, goals2):  
+    add_team_result(team1, goals1, get_winkey(goals1, goals2)) 
+    add_team_result(team2, goals2, get_winkey(goals2, goals1))
+
+scoring, teams = {'Побед': 3, 'Ничьих': 1, 'Поражений': 0}, {}
+
+a = int(input())
+for i in range(a):
+    set = input().split(';')
+    add_result(set[0], int(set[1]), set[2], int(set[3]))
+    
+for team, results in teams.items():
+    print(team+':'+ str(results['Всего_игр']), str(results['Побед']), 
+                    str(results['Ничьих']), str(results['Поражений']), 
+                    str(results['Всего_очков']))
+"d = {'север':0, 'юг':0, 'запад':0, 'восток':0,}
+for i in range(int(input())):
+    s = input().lower().split()
+    key = s[0]
+    value = int(s[1])
+    d[key] += int(value)
+               
+print(d['восток'] - d['запад'], d['север'] - d['юг'])
+"a = [int(input()) for _ in range(int(input()))]
+
+print(sum(a))
+"mylist = []
+for obj in objects:
+    if obj not in mylist:
+        mylist.append(obj)
+
+print(len(mylist))
+"def create(namespace, parent):
+    namespaces.append({'namespace': namespace, 'parent': parent, 'var': []})
+
+def add(namespace, var):
+    for ns in namespaces:
+        if ns['namespace'] == namespace and var not in ns['var']:
+            ns['var'].append(var)
+
+def get(namespace, var):
+    for ns in namespaces:
+        if ns['namespace'] == namespace: 
+            if var in ns['var']:
+                return ns['namespace']
+            elif ns['parent'] == None:
+                return None
+            else:
+                return get(ns['parent'], var)
+
+namespaces = []
+create('global', None)
+
+for i in range(int(input())):
+    cmd, par1, par2  = input().split(' ')
+    if cmd == 'add':
+        add(par1, par2) 
+    elif cmd == 'get':
+        print(str(get(par1, par2)))
+    elif cmd == 'create':
+        create(par1, par2)
+"class MoneyBox:
+    def __init__(self, capacity):
+        self.capacity  = capacity
+        self.count  = 0
+        
+    def can_add(self, v):
+        if self.count  + v > self.capacity:
+            return False
+        else:
+            return True
+
+    def add(self, v):
+        self.count  += v
+
+def intinput(text=''):
+    return int(input(text))
+"class Buffer:
+    def __init__(self):
+        self.buf = []
+    
+    def add(self, *a):
+        self.buf += a
+        count5 = len(self.buf) // 5
+        if count5 > 0:
+            for i in range(count5):
+                print(sum(self.buf[i*5:i*5+5]))
+            self.buf = self.buf[count5*5:]
+    
+    def get_current_part(self):
+        return self.buf
+"def is_parent(dct, parent, child):
+
+    # Предварительные проверки
+    parents = dct.get(child, None)
+    if parents is None:
+        return False
+    elif parent == child:
+        return True
+
+    # Основные проверки
+    if parent in parents:
+        return True
+    else:
+        for new_child in parents:
+            if is_parent(dct, parent, new_child):
+                return True
+        return False
+
+
+def check(dct, parent, child):
+
+    if is_parent(dct, parent, child):
+        return 'Yes'
+    else:
+        return 'No'
+
+
+dct = {}
+
+# Ввод данных
+n = int(input())
+for _ in range(n):
+    lst = input().split()
+    dct[lst[0]] = lst[2:]
+
+# Ввод запросов и вывод ответа
+q = int(input())
+for _ in range(q):
+    parent, child = input().split()
+    print(check(dct, parent, child))
+"def is_parent(dct, parent, child):
+    # Предварительные проверки
+    parents = dct.get(child, None)
+    if parents is None:
+        return False
+    elif parent == child:
+        return True
+    # Основные проверки
+    if parent in parents:
+        return True
+    else:
+        for new_child in parents:
+            if is_parent(dct, parent, new_child):
+                return True
+        return False
+
+def check(dct, ex_list, child):
+    for parent in ex_list:
+        if is_parent(dct, parent, child):
+            return True
+    return False
+
+
+dct = {}
+ex_list = list()
+
+# Ввод данных
+n = int(input())
+for _ in range(n):
+    lst = input().split()
+    dct[lst[0]] = lst[2:]
+
+# Ввод запросов и вывод ответа
+q = int(input())
+for _ in range(q):
+    ex = input()
+    if ex in ex_list:
+        continue
+    elif check(dct, ex_list, ex):
+        ex_list.append(ex)
+        print(ex)
+    else:
+        ex_list.append(ex)
+"import datetime
+
+date = datetime.datetime.strptime(input(), ""%Y %m %d"")
+
+newdate = date + datetime.timedelta(int(input()))
+
+print(newdate.year, newdate.month, newdate.day)
+"class multifilter:
+    def judge_half(pos, neg):
+        # допускает элемент, если его допускает хотя бы половина фукнций (pos >= neg)
+        return pos >= neg
+
+    def judge_any(pos, neg):
+        # допускает элемент, если его допускает хотя бы одна функция (pos >= 1)
+        return pos >= 1
+
+    def judge_all(pos, neg):
+        # допускает элемент, если его допускают все функции (neg == 0)
+        return neg == 0
+
+    def __init__(self, iterable, *funcs, judge=judge_any):
+        self.iterable = iterable   # исходная последовательность
+        self.funcs = funcs         # допускающие функции
+        self.judge = judge         # решающая функция
+        self.i = 0
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        while True:
+            if self.i < len(self.iterable):
+                self.i += 1
+                
+                x, pos, neg = self.iterable[self.i - 1], 0, 0
+                for func in self.funcs:
+                    if func(x):
+                        pos += 1
+                    else:
+                        neg += 1
+                
+                if self.judge(pos, neg):
+                    return x
+            else:
+                raise StopIteration
+"class multifilter:
+    def judge_half(pos, neg):
+        # допускает элемент, если его допускает хотя бы половина фукнций (pos >= neg)
+        return pos >= neg
+
+    def judge_any(pos, neg):
+        # допускает элемент, если его допускает хотя бы одна функция (pos >= 1)
+        return pos >= 1
+
+    def judge_all(pos, neg):
+        # допускает элемент, если его допускают все функции (neg == 0)
+        return neg == 0
+
+    def __init__(self, iterable, *funcs, judge=judge_any):
+        self.iterable = iterable   # исходная последовательность
+        self.funcs = funcs         # допускающие функции
+        self.judge = judge         # решающая функция
+
+    def __iter__(self):
+        for x in self.iterable:
+            pos, neg = 0, 0
+            for func in self.funcs:
+                if func(x):
+                    pos += 1
+                else:
+                    neg += 1
+            
+            if self.judge(pos, neg):
+                yield x
+"def primes():   
+    yield 2
+    yield 3
+    
+    prs = [3]
+    n = 3
+    
+    while True:
+        n += 2
+        for p in prs:
+            if n % p == 0:
+                break
+        else:
+            prs.append(n)
+            yield n
+"s, t = [input() for _ in range(2)]
+
+count = 0
+while t in s:
+    i = s.find(t)
+    s = s[i+1:]
+    count += 1
+    
+print(count)
+"import re
+import sys
+
+for line in sys.stdin:
+    line = line.rstrip()
+    
+    if re.match(r"".*\bcat\b.*"
+line):
+        print(line)
+"import sys, re
+
+for line in sys.stdin:
+    line = line.rstrip()
+    if re.match(r"".*z...z.*"
+line):
+        print(line)
+"import sys, re
+
+for line in sys.stdin:
+    line = line.rstrip()
+    if re.match(r"".*\\.*"
+line):
+        print(line)

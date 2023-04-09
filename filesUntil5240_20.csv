@@ -1,0 +1,246 @@
+"def add(spisok):
+    if spisok[0] in ns.keys():
+        ns[spisok[0]]['vars'].extend(spisok[2:len(spisok)])
+    else:
+        ns[spisok[0]] = {'vars': []}
+        ns[spisok[0]]['vars'].extend(spisok[2:len(spisok)])
+
+
+def get(m_parent, child):
+    if child not in ns.keys():
+        return 'No'
+    if m_parent in ns[child]['vars'] or m_parent == child:
+        return 'Yes'
+    elif len(ns[child]['vars']) == 0:
+        return 'No'
+    else:
+        for i in ns[child]['vars']:
+            midl_res = get(m_parent, i)
+            if midl_res == 'Yes':
+                return midl_res
+        return 'No'
+
+
+ns = dict()
+for j in range(int(input())):
+    spisok=[]
+    spisok.extend([i for i in (input().split())])
+    if len(spisok) == 1:
+        ns[spisok[0]] = {'vars': []}
+    else:
+        add(spisok)
+        
+
+result = []
+for k in range(int(input())):
+    m_parent, child = input().split()
+    result.append(get(m_parent, child))
+        
+for i in range(len(result)):
+    print(result[i])
+"class ExtendedStack(list):
+    def sum(self):
+        self.append(int(self.pop()) + int(self.pop()))
+        # операция сложения
+
+    def sub(self):
+        self.append(int(self.pop()) - int(self.pop()))
+        # операция вычитания
+
+    def mul(self):
+        self.append(int(self.pop()) * int(self.pop()))
+        # операция умножения
+
+    def div(self):
+        self.append(int(self.pop()) // int(self.pop()))
+        # операция целочисленного деления
+,
+class LoggableList(Loggable, list):
+    def append(self, x):
+        super().append(x)
+        self.log(x)
+,
+def add(spisok):
+    if spisok[0] in ns.keys():
+        ns[spisok[0]]['vars'].extend(spisok[2:len(spisok)])
+    else:
+        ns[spisok[0]] = {'vars': []}
+        ns[spisok[0]]['vars'].extend(spisok[2:len(spisok)])
+
+
+def get(m_parent, child):
+    if child in m_parent[:-1]:
+        return child
+    else:
+        for i in ns[child]['vars']:
+            midl_res = get(m_parent, i)
+            if midl_res == i:
+                return child
+
+
+ns = dict()
+for j in range(int(input())):
+    spisok = []
+    spisok.extend([i for i in (input().split())])
+    if len(spisok) == 1:
+        ns[spisok[0]] = {'vars': []}
+    else:
+        add(spisok)
+
+
+result = []
+temp_in = []
+for k in range(int(input())):
+    a = input()
+    temp_in.append(a)
+    result.append(get(temp_in, a))
+
+for i in range(len(result)):
+    if result[i] is not None: print(result[i])
+"class NonPositiveError(Exception):
+    pass
+
+
+class PositiveList(list):
+    def append(self, x):
+        if x > 0:
+            super().append(x)
+        else:
+            raise NonPositiveError()
+"import datetime
+
+day = datetime.datetime.strptime(input(), ""%Y %m %d"")
+days = datetime.timedelta(int(input()))
+now_day = day + days
+
+print(now_day.year, now_day.month, now_day.day)
+,
+class multifilter:
+    def judge_half(pos, neg):
+        if pos >= neg:
+            return True
+        else:
+            return False
+        # допускает элемент, если его допускает хотя бы половина фукнций (pos >= neg)
+
+    def judge_any(pos, neg):
+        if pos >= 1:
+            return True
+        else:
+            return False
+        # допускает элемент, если его допускает хотя бы одна функция (pos >= 1)
+
+    def judge_all(pos, neg):
+        if neg == 0:
+            return True
+        else:
+            return False
+        # допускает элемент, если его допускают все функции (neg == 0)
+
+    def __init__(self, iterable, *funcs, judge=judge_any):
+        self.iterable = iterable
+        self.funcs = funcs
+        self.judge = judge
+        # iterable - исходная последовательность
+        # funcs - допускающие функции
+        # judge - решающая функция
+
+    def __iter__(self):
+        for i in self.iterable:
+            pos, neg = 0, 0
+            for j in self.funcs:
+                if j(i):
+                    pos += 1
+                else:
+                    neg += 1
+            if self.judge(pos, neg):
+                yield i
+        # возвращает итератор по результирующей последовательности
+"import math
+
+def primes():
+    a = 1
+    while True:  # просто пример
+        a += 1
+        if (math.factorial(a-1)+1)%a==0:
+            yield a
+"a,b=map(int, (input().split('/')))
+lst = []
+while b != 0:
+    c = a//b
+    lst.append(c)
+    a1 = b
+    b = a%b
+    a = a1
+for i in lst: print(i, end="" "")
+"cod = ' abcdefghijklmnopqrstuvwxyz'
+dis = int(input())
+word = input().strip()
+result = """
+#print(len(cod))
+for i in word:
+    result += cod[((cod.index(i)+dis) - len(cod))%len(cod)]
+print('Result: ""%s""'%result)
+"cost = {'6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+
+first, second = map(str, input().split())
+joker = input().upper()
+
+first = first.upper()
+second = second.upper()
+if (first[-1] == second[-1]) and (first != second):
+    if cost[first[:-1]] > cost[second[:-1]]:
+        print('First')
+    else:
+        print('Second')
+elif (first[-1] == joker) or (second[-1] == joker):
+    if first[-1] == joker:
+        print('First')
+    else:
+        print('Second')
+else:
+    print('Error')
+"start, end = map(int, input().split())
+for i in range(start, end+1):
+    if not(i%5 or i%3):
+        print(""FizzBuzz"")
+    elif not(i%3):
+        print(""Fizz"")
+    elif not(i%5):
+        print(""Buzz"")
+    else:
+        print(i)
+"a = str(input())
+b = str(input())
+i = 0
+while a.find(b, i) != -1:
+    i = a.find(b, i)
+    print(i, end="" "")
+    i += 1
+if i == 0:
+    print(i - 1)
+"lst = input().split()
+stat = {}
+
+for i in lst:
+    a = len(i)
+    if a in stat.keys():
+        stat[a] += 1
+    else:
+        stat[a] = 1
+for key, value in sorted(stat.items()):
+    print(str(key) + ': ' + str(value))
+"def mod_checker(x, mod=0):
+    return lambda y : y % x == mod
+"s = input()
+t = input()
+i = 0
+cnt = 0
+while s.find(t, i) != -1:
+    i = s.find(t, i)
+    i += 1
+    cnt += 1
+if (i == 0) or (i == -1):
+    print(0)
+else:
+    print(cnt)

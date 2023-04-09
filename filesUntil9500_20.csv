@@ -1,0 +1,323 @@
+"#Создание матрицы n x n и заполнение ее нулями:
+n = int(input())
+a = [[0 for j in range(n)] for i in range(n)] 
+
+#Заполнение матрицы числами по спирали:
+i, j, count = [0, -1, 0]
+while count < n * n:
+  while j < n - 1 and a[i][j+1] == 0: #движение вправо
+    j += 1
+    count += 1
+    a[i][j] = count
+  while i < n - 1 and a[i+1][j] == 0: #движение вниз
+    i += 1
+    count += 1
+    a[i][j] = count
+  while j > 0 and a[i][j-1] == 0: #движение влево
+    j -= 1
+    count += 1
+    a[i][j] = count
+  while i > 0 and a[i-1][j] == 0: #движение вверх
+    i -= 1
+    count += 1
+    a[i][j] = count
+
+#Распечатка матрицы:
+for i in range (n):
+  print()
+  for j in range (n):
+    print (a[i][j],'', end='')
+"stroka = input().lower().split()
+slovar = {}
+slovar = slovar.fromkeys(stroka, 0)
+for i in stroka:
+  if i in slovar.keys(): 
+    slovar[i] += 1
+for i in slovar: print (i,slovar[i])
+"n = int(input())
+tab = {}
+#                   0     1       2        3        4
+# tab ={Команда : [Игр, Побед, Ничьих, Поражений, Очков]}
+for i in range(n):
+  result = input().split(';')
+  #               0          1         2         3
+  # result = [Команда 1 , голы(1), Команда 2, голы(2)]
+
+  if result[1] > result[3]:
+    if result[0] not in tab.keys(): tab[result[0]]=[0,0,0,0,0]
+    tab[result[0]][0] += 1 # добавляем Команде 1 кол-во игр
+    tab[result[0]][1] += 1 # добавляем Команде 1 кол-во побед
+    tab[result[0]][4] += 3 # добавляем Команде 1 кол-во очков
+
+    if result[2] not in tab.keys(): tab[result[2]]=[0,0,0,0,0]
+    tab[result[2]][0] += 1 # добавляем Команде 2 кол-во игр
+    tab[result[2]][3] += 1 # добавляем Команде 2 кол-во поражений
+  
+  elif result[1] < result[3]:
+    if result[2] not in tab.keys(): tab[result[2]]=[0,0,0,0,0]
+    tab[result[2]][0] += 1 # добавляем Команде 2 кол-во игр
+    tab[result[2]][1] += 1 # добавляем Команде 2 кол-во побед
+    tab[result[2]][4] += 3 # добавляем Команде 2 кол-во очков
+    
+    if result[0] not in tab.keys(): tab[result[0]]=[0,0,0,0,0]
+    tab[result[0]][0] += 1 # добавляем Команде 1 кол-во игр
+    tab[result[0]][3] += 1 # добавляем Команде 1 кол-во поражений
+  
+  else:
+    if result[0] not in tab.keys(): tab[result[0]]=[0,0,0,0,0]
+    tab[result[0]][0] += 1 # добавляем Команде 1 кол-во игр
+    tab[result[0]][2] += 1 # добавляем Команде 1 кол-во ничьих
+    tab[result[0]][4] += 1 # добавляем Команде 1 кол-во очков
+
+    if result[2] not in tab.keys(): tab[result[2]]=[0,0,0,0,0]
+    tab[result[2]][0] += 1 # добавляем Команде 2 кол-во игр
+    tab[result[2]][2] += 1 # добавляем Команде 2 кол-во ничьих
+    tab[result[2]][4] += 1 # добавляем Команде 2 кол-во очков
+for i in tab.keys():
+    print (i+"":"
+end='')
+    for j in tab[i]:
+        print(j,'', end='')
+    print()
+"line1 = input()
+line2 = input()
+text1 = input()
+text2 = input()
+
+for i in text1:
+  print (line2[line1.find(i)], end='')
+
+print()
+
+for i in text2:
+  print (line1[line2.find(i)], end='')
+"# Запись словаря в множество slovar:
+slovar = set()
+for i in range(int(input())):
+  slovar.add(input().lower())
+
+# Получение строк и сохранение слов из них в множество text:
+text = set()
+for i in range(int(input())):
+  line = input().lower().split()
+  for j in line:
+      text.add(j)
+
+# Вычитание slovar из text и вывод слов с ошибками:
+text -= slovar
+for i in text: print(i)
+"x, y = 0, 0 
+for i in range(int(input())):
+  path = input().split()
+  if path[0] == 'север' : y += int(path[1])
+  if path[0] == 'юг'    : y -= int(path[1])
+  if path[0] == 'запад' : x -= int(path[1])
+  if path[0] == 'восток': x += int(path[1])
+print (x,y)
+"ids = set()
+for i in objects:
+    ids.add(id(i))
+print (len(ids))
+"def closest_mod_5(x):
+    y = x
+    while y % 5 != 0:
+        y += 1
+    return y
+"def cnk (n, k):
+  if k == 0 or k == n : return 1
+  if k > n : return 0
+  return cnk (n - 1, k) + cnk (n - 1, k - 1)
+
+n, k = map(int, input().split())
+print (cnk(n, k))
+"# Функция добавления пространства имен в глобальный список nslist
+def nslist_mod (now_list, new_ns, parent_ns):
+  for i in now_list:
+    if i == parent_ns: #если нашли список (пространство) в котором надо создать новый спискок (подпространство)
+      now_list.append([new_ns]) # то создаем его
+      return now_list
+    elif type(i) == list: # если список не родительский, то заходим в него и ищем уже в нем с помощью рекурсии
+        answer = nslist_mod(i, new_ns, parent_ns)
+        if answer != None:    
+          now_list.remove(i)
+          now_list.append(answer)
+          return now_list
+
+# Функция добавления переменных в глобальный список nslist
+def nslist_add (now_list, parent_ns, var):
+  for i in now_list:
+    if i == parent_ns: # если нашли список (пространство), в которое надо записать переменную
+      now_list.append(var) # то добавляем ее в список (пространство)
+      return now_list
+    elif type(i) == list: # если список (пространство) не родительское, то заходим в него и ищем уже в нем с помощью рекурсии
+        answer = nslist_add(i, parent_ns, var)
+        if answer != None:    
+          now_list.remove(i)
+          now_list.append(answer)
+          return now_list
+
+# Функция поиска переменных в пространствах имен
+def nslist_get (now_list, asked_ns, var):
+  if now_list[0] == asked_ns and var in now_list: return now_list[0] # если искомая переменная находится в заданном списке (пространстве), то return 'название списка' и возвращаемся в родительское пространство
+  elif now_list[0] == asked_ns and var not in now_list: return 0 # если найден заданный список, а переменной в нем нет, то return 0 и возвращаемся в родительский список (пространство)
+  else: # если заданный список (пространство) еще не найден, то продолжаем перебирать списки и уходить вглубь каждого из них с помощью рекурсии, пока не найдем заданный список (пространство)
+    for i in now_list:
+      if type(i) == list:
+        answer = nslist_get (i, asked_ns, var)
+        if answer == 0:
+          if var in now_list: return now_list[0]
+          else: return 0
+        elif answer != None: return answer
+
+# ОСНОВНОЙ КОД ПРОГРАММЫ:
+nslist = ['global'] # список вложенных списков имитирующий структуру пространств имен и переменных в нем
+'''
+Например, для команд из условия задачи список nslist будет выглядеть так:
+nslist = ['global', 'a', ['foo', 'b', ['bar', 'a']]]
+'''
+for i in range(int(input())):
+  command = input().split()
+
+  if command[0] == ('create'): # если поступила команда создать пространство имен
+    nslist = nslist_mod(nslist, command[1], command[2]) #то обращаемся к функции nslist_mod
+  
+  elif command[0] == ('add'): # если поступила команда создать переменную
+    nslist = nslist_add(nslist, command[1], command[2]) #то обращаемся к функции nslist_add
+   
+  elif command[0] == ('get'): # если поступила команда найти принадлежность переменной
+    answer = nslist_get (nslist, command[1], command[2]) #то обращаемся к функции nslist_get
+    if answer == 0: print ('None')
+    else: print (answer)
+"class MoneyBox:
+  
+  def __init__(self, capacity, money = 0):
+    self.capacity = capacity
+    self.money = money
+  
+  def can_add (self, v):
+    if self.capacity - self.money >= v: return True
+    else: return False 
+  
+  def add (self, v):
+    self.money += v
+"class Buffer:
+  
+  def __init__(self):
+    self.lst = []
+  
+  def add(self, *a):
+    self.lst += a
+    while len(self.lst) >= 5:
+      print (sum(self.lst[i] for i in range(5)))
+      for i in range (5): self.lst.pop(0)
+  
+  def get_current_part(self):
+    return (self.lst)
+"def is_parent (class1, class2):
+  if class2 in parents.keys():
+    if class1 in parents[class2]: 
+      return True
+    else: 
+      for i in parents[class2]:
+        if is_parent(class1,i) == True: return True
+
+
+parents = {}
+# Заполняем словарь {класс : прямые предки}
+for i in range(int(input())):
+  temp = input().split()
+  parents[temp[0]] = temp[2:]
+# Принимаем запросы:
+for i in range(int(input())):
+  class1, class2 = input().split()
+  if class1 == class2: print ('Yes') # Тупой запрос, который есть в тестах!
+  elif is_parent(class1, class2) == True: print ('Yes')
+  else: print ('No')
+"class ExtendedStack(list):
+  def sum(self):
+    top1 = self.pop()
+    top2 = self.pop()
+    self.append(top1 + top2)
+
+  def sub(self):
+    top1 = self.pop()
+    top2 = self.pop()
+    self.append(top1 - top2)
+
+  def mul(self):
+    top1 = self.pop()
+    top2 = self.pop()
+    self.append(top1 * top2)
+
+  def div(self):
+    top1 = self.pop()
+    top2 = self.pop()
+    self.append(top1 // top2)
+"# Функция проверки на родительство:
+def is_parent (class1, class2):
+  if class2 in parents.keys():
+    if class1 in parents[class2]: 
+      return True
+    else: 
+      for i in parents[class2]:
+        if is_parent(class1,i) == True: return True
+
+
+# Создаем и заполняем словарь {класс исключений: его предки}
+parents = {} 
+for i in range(int(input())):
+  temp = input().split()
+  parents[temp[0]] = temp[2:]
+
+# Заполняем список в порядке, в котором в программе записаны исключения:
+Order = [] 
+for i in range(int(input())):
+  Order.append(input())
+
+# Проверяем:
+for i in range(len(Order)): # цикл по исключениям, записанным в программном коде 
+  if Order.index(Order[i]) < i: #  Если ранее в списке стоит точно такое же исключение!!!
+    print (Order[i])
+    break
+  for j in range(i): # цикл по исключениям, стоящим до i-го элемента
+    if is_parent (Order[j], Order[i]) == True:
+      print (Order[i])
+      break
+"from datetime import timedelta, datetime
+
+Y, M, D = input().split()
+date = datetime(int(Y), int(M), int(D))
+days = timedelta (int(input()))
+newdate = date + days
+print (newdate.year, newdate.month, newdate.day)
+"def primes():
+    k = 1
+    while True:
+        k += 1
+        res = True
+        for i in range(2, k//2 + 1):
+            if k % i == 0:
+                res = False
+        if res:
+            yield k
+"s, a, b = input(), input(), input()
+i = 0
+while i <= 1000:
+  sprev = s
+  s = s.replace(a, b)
+  if sprev == s and a in s or a in b and a != b:
+    print('Impossible')
+    break
+  elif sprev == s: 
+    print(i)
+    break
+  i += 1
+if i == 1000:
+  print('Impossible')
+"s, t = input(), input()
+k = 0
+i = s.find(t)
+while i != -1:
+  k += 1
+  i = s.find(t,i+1)
+print(k)

@@ -1,0 +1,165 @@
+не удовлетворяющее условиям процесса Капрекара"")
+        sys.exit()    
+    else:
+        return (n)
+
+
+#  Напишите функцию numerics(n), принимающую на вход 1 натуральное число, 
+#  а возвращающую список цифр из которых состоит число
+def numerics(n):
+    L=[]
+    nums = str(n)
+    for i in range(len(nums)):
+        L.append(int(nums[i]))
+    return L
+
+
+#  Функция должна сформировать внутри 2 числа:
+def kaprekar_step(L):    
+    nums = L
+    # проверка нахождения ответа списке, выход при нахождении элемента в списке
+    if str(L) not in buffL_for_print: # формируем список всех пробегающих чисел
+        buffL_for_print.append(str(L))# формируем множество уникальных чисел
+    else:
+        for i in range(len(buffL_for_print)):# вывод уникальных чисел из множества и завершение п-мы
+            
+            buff_num = buffL_for_print[i]
+            buff_num = buff_num[1:-1]
+            buff_num = buff_num.replace("
+"
+"""")
+            buff_num = buff_num.replace("" "
+"""")
+            print(int(buff_num))
+            buff_num = int(buff_num)
+            
+            L_for_print = int(''.join([str(i) for i in nums]))
+            
+            if (buff_num == 495 or buff_num == 6174 or buff_num == 549945 or buff_num == 631764):
+                sys.exit()
+            
+        print(""Следующее число - ""+str(L_for_print)+"
+кажется процесс зациклился..."")
+        sys.exit()
+        
+    a = int(''.join([str(i) for i in (sorted(nums, reverse=True))]))
+    b = int("""".join([str(i) for i in (sorted(nums))]))
+    x = a - b
+    return x
+
+# конечная функция
+def kaprekar_loop(n):
+    n = kaprekar_check(n) # зачем возвращать True or False, если я их не буду использовать?
+    L = numerics(n)# принимает число n, возвращает список цифр n
+    x = kaprekar_step(L) # принимает L- список чисел, возвращает разницу между макс и мин
+    kaprekar_loop(x)
+
+#n = 103303
+#kaprekar_loop(n)
+"def luka(L0, L1, n):
+    buff = []
+    buff.append(L0)
+    buff.append(L1)
+    
+    i = 2
+    while i < n+2:
+        Ln = buff[0]+ buff[1]
+        buff.append(Ln)
+        del(buff[0])
+        i += 1
+        if i+1 == n+2:
+            return Ln
+
+    return buff[n]
+"from decimal import *
+getcontext().prec = 50  
+
+
+def  fi(L0, L1, n):
+    for _ in range(n-1):
+        Ln = L0 + L1
+        L0 = L1
+        L1 = Ln 
+        
+    L1 = Decimal(L0)
+    Ln = Decimal(Ln)
+    res = Ln/L1
+    
+    return Decimal(res)
+"def factorial(n):
+    res = 1
+    if n == 0 or n == 1:
+        #print(1)
+        return 1
+    else:
+        for i in range(1, n+1):
+            res *= i
+    #print(res)
+    return res
+
+def sf(n):
+    res = 1
+    for i in range(1, n+1):
+        fac = factorial(i)
+        res*= fac
+
+    #print (res)
+    return res
+"def translate(num,n=2):
+    cel = 1
+    buff = []
+    while cel != 0:
+        cel = num // n 
+        ost = num % n
+        num = cel
+        buff.append(ost)
+        
+    buff0 = int(''.join(str(e) for e in buff[::-1]))
+    return buff0
+"def Kfactorial(n, k = 1):
+    res = 1
+    while n > 0:
+        res *= n
+        n -= k
+    return res
+"import numpy as np
+,
+import numpy
+print(numpy.version.version)
+,
+import numpy as np
+n=int(input())
+Z=np.zeros(n)
+,
+a, b = int(input()), int(input())
+if a < b:
+    a, b = b, a
+n = a
+while n % b:
+    n += a
+print(n)# put your python code here
+,
+a, b = int(input()), int(input()) # put your python code here
+if a % 3 == 2:
+    a += 1
+elif a % 3 == 1:
+    a += 2
+k = 0
+s = 0
+for i in range (a, b+1, 3):
+    k += 1
+    s += i 
+print (s/k)
+"s = input() + ' '
+i = 0
+while i < len(s) - 1:
+    if s[i] != s[i+1]: #Если после символа идет не такая же буква
+        s = s[:i+1] + '1' + s[i+1:] #Ставим после буквы цифру 1 
+        i += 2 #Перешагиваем через два символа
+    else: #Иначе (то есть у нас повторяющиеся буквы)
+        k = 2
+        while s[i] == s[i+k]:
+            k +=1 #Проверяем сколько у нас всего повторений
+        s = (s[:i+1] + str(k) + s[i+k:]) #Заменяем повторяющиеся буквы на их количество
+        i += len(str(k)) + 1
+print(s[:-1])

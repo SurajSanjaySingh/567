@@ -1,0 +1,234 @@
+"line = input()
+
+a1 = ' -- '
+a2 = '|  |'
+a3 = '    '
+a4 = '   |'
+a5 = '|   '
+
+d = {'0': [a1, a2, a2, a3, a2, a2, a1],
+     '1': [a3, a4, a4, a3, a4, a4, a3],
+     '2': [a1, a4, a4, a1, a5, a5, a1],
+     '3': [a1, a4, a4, a1, a4, a4, a1],
+     '4': [a3, a2, a2, a1, a4, a4, a3],
+     '5': [a1, a5, a5, a1, a4, a4, a1],
+     '6': [a1, a5, a5, a1, a2, a2, a1],
+     '7': [a1, a4, a4, a3, a4, a4, a3],
+     '8': [a1, a2, a2, a1, a2, a2, a1],
+     '9': [a1, a2, a2, a1, a4, a4, a1]}
+
+print('x' + '-' * (len(line) * 4 + len(line)-1 if len(line) > 1 else 4) + 'x')
+
+for i in range(7):
+    s = [d[j][i] for j in line]
+    ss = ' '.join(s)
+    print('|' + ss + '|')
+
+print('x' + '-' * (len(line) * 4 + len(line)-1 if len(line) > 1 else 4) + 'x')
+"a = list(input())
+
+d = {
+    'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, 'L': 50, 'XC': 90,
+    'C': 100, 'CD': 400, 'D': 500, 'CM': 900, 'M': 1000
+}
+
+try:
+    for i in range(1, len(a)):
+        if d[a[i-1]] < d[a[i]]:
+            s = a[i-1] + a[i]
+            del a[i-1:i+1]
+            a.insert(i-1, s)
+except IndexError:
+    pass
+print(sum([d[j] for j in a]))
+"c = []
+b = 0
+a = int(input())
+
+for i in range(1, a+1):
+    if b > a:
+        break
+    b += i
+    c.append(i)
+
+if b > a:
+    c.remove(b - a)
+print(len(c))
+print(*c)
+"n, line = int(input()), input().strip()
+base = ' abcdefghijklmnopqrstuvwxyz'
+ouf = ''
+
+for i in line:
+    ind = base.index(i) + n
+    if ind > len(base) - 1:
+        ind = ind % len(base)
+    elif ind < -len(base):
+        ind = ind % -len(base)
+    ouf += base[ind]
+print('Result: ' + '""' + ouf + '""')
+"n, line = int(input()), input().strip()
+alphabet = ''.join([chr(i) for i in range(int(0x1f600), int(0x1f64f)+1)])
+ouf = ''
+
+for i in line:
+    ind = alphabet.index(i) + n
+    if ind > len(alphabet) - 1 or ind < -len(alphabet):
+        ind = ind % len(alphabet)
+    ouf +=alphabet[ind]
+print('Result: ""' + ouf + '""')
+"rows, columns = map(int, input().split())
+lst = [input() for i in range(rows)]
+
+for i in range(rows):
+    if i == rows - 1:
+        i = - 1
+    for j in range(columns):
+        if j == columns - 1:
+            j = - 1
+        if columns > 1:
+            s = lst[i][j] + lst[i][j-1] + lst[i][j+1] + lst[i-1][j] + lst[i-1][j-1] + lst[i-1][j+1] +\
+                lst[i+1][j] + lst[i+1][j-1] + lst[i+1][j+1] if len(lst) > 1\
+                else lst[i][j] * 3 + lst[i][j-1] * 3 + lst[i][j+1] * 3
+            count = s.count('X')
+            if lst[i][j] == '.':
+                print('X' if count == 3 else '.', end='')
+            elif lst[i][j] == 'X':
+                print('X' if 2 <= count - 1 <= 3 else '.', end='')
+        else:
+            s = lst[i] * 3 + lst[i+1] * 3 + lst[i-1] * 3
+            count = s.count('X')
+            if lst[i][j] == '.':
+                print('X' if count == 3 else '.', end='')
+            elif lst[i][j] == 'X':
+                print('X' if 2 <= count-1 <= 3 else '.', end='')
+    print()
+"n, m = map(int, input().split())
+field = [input() for i in range(n)]
+
+for i in range(n):
+    for j in range(m):
+        if field[i][j] == '*':
+            print('*', end='')
+        else:
+            s = ''.join(field[k][t] for k in range(i-1 if i > 0 else i, i+2 if i < n-1 else i+1)
+                        for t in range(j-1 if j > 0 else j, j+2 if j < m-1 else j+1))
+            print(s.count('*'), end='')
+    print()
+"card_1, card_2 = input().split()
+club = input()
+d = {'6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+
+if card_1[-1] == card_2[-1]:
+    print('First' if d[card_1[:-1]] > d[card_2[:-1]] else 'Second')
+else:
+    if club in card_1 or club in card_2:
+        print('First' if card_1[-1] == club else 'Second')
+    else:
+        print('Error')
+"a = input() + '*'
+start = a[0]
+count = 0
+
+for i in range(len(a)):
+    if a[i] == start:
+        count += 1
+    else:
+        print(str(count) + a[i-1] if count > 1 else a[i-1], end='')
+        start = a[i]
+        count = 1
+"check = [str(i) for i in range(10)]
+n = ''
+
+for i in input().strip():
+    if i in check:
+        n += i
+    else:
+        if len(n) > 0:
+            print(i * int(n), end='')
+        else:
+            print(i, end='')
+        n = ''
+"a = input().split('_')
+b = [i[0].upper()+i[1:] for i in a]
+print(''.join(b))
+"s, p = input().split(), input()
+if p in s:
+    for i in range(s.count(p)):
+        ind = s.index(p)
+        print(ind, end=' ')
+        del s[ind]
+        s.insert(ind, '*')
+else:
+    print('None')
+,
+a = input().split()
+print(*set([i for i  in a if a.count(i) > 1]))
+"len_letter, len_code = map(int, input().split())
+code_dic = {}
+
+for i in range(len_letter):
+    inp = input().split()
+    code_dic[inp[-1]] = inp[0].replace(':', '')
+decoded = input()
+
+fragment, res = '', ''
+for i in decoded:
+    fragment += i
+    if fragment in code_dic:
+        res += code_dic[fragment]
+        fragment = ''
+
+print(res)
+"import heapq
+
+it = int(input())
+x = [10]
+heapq.heapify(x)
+
+for i in range(it):
+    command = input().split()
+    if len(command) > 1:
+        heapq.heappush(x, -int(command[1]))
+    else:
+        print(str(heapq.heappop(x))[1:])
+"src = [int(i) for i in input().split()]
+# src = [10]
+# src = [1, 3, 5, 6, 10]
+rslt = []
+for i in range(len(src)):
+    if len(src) == 1:
+        rslt += [src[i]]
+    elif i == len(src)-1:
+        rslt += [src[i-1] + src[0]]
+    else:
+        rslt += [src[i-1] + src[i+1]]
+# print(rslt)
+l2s = ''
+for c in rslt:
+    l2s += str(c) + ' '
+print(l2s)
+"src = [int(i) for i in input().split()]
+if len(src) == 1:
+    print(src[0])
+else:
+    [print( src[i-1] + src[(i+1) % len(src)] ,end=' ') for i in range(len(src))]
+    # выражение src[(i+1) % len(src)] на выходе для src = [1, 3, 5, 6, 10] даст [3, 5, 6, 10, 1]
+    # потому, что (i+1) % len(src) даёт 1 2 3 4 0
+    # т.е. таким образом 0й элемент оказывается в конце списка (как будто повернули циферблат)
+    # таким образом если при обращении к i+1 случится выход за границу диапазона для последнего элемента
+    # то при обращении к (i+1) % len(src) элементу выхода не произойдет
+    # поэтому складывая -1й элемент с [(i+1) % len(src)]-тым элементом
+    # мы выполним условие найти сумму предыдущего и следующего элементов
+    # [print( src[(i+1) % len(src)]) for i in range(len(src))]
+"src = [int(i) for i in input().split()]
+NoDubl = []
+if len(src) > 1:
+    src.sort()
+    # [print( src.index(src[i]), end=' ' ) for i in range(len(src)) if (src[i-1] == src[i]) ]
+    [NoDubl.append(src[i]) for i in range(len(src)) if src[i-1] == src[i] and src[i] not in NoDubl ]
+[print( с, end=' ' ) for с in NoDubl ]
+"lst = [int(input())]
+while sum(lst) != 0:
+    lst.append(int(input()))
+print(sum( el * el for el in lst))

@@ -1,0 +1,323 @@
+"import sys
+
+
+def merge(lf, rt):
+    count_inv = lf.pop() + rt.pop()
+    temp = []
+    while lf and rt:
+        if lf[0] > rt[0]:
+            count_inv += len(lf)
+            temp.append(rt.pop(0))
+        else:
+            temp.append(lf.pop(0))
+    temp.extend(lf) if lf else temp.extend(rt)
+    temp.append(count_inv)
+    return temp
+
+
+def qty(qu):
+    count = 0
+    if len(qu) == 1:
+        qu.append(count)
+        return qu
+    else:
+        left = qu[:len(qu) // 2]
+        right = qu[len(qu) // 2:]
+        return merge(qty(left), qty(right))
+
+
+def qty_of_inversions():
+    n = int(sys.stdin.readline())
+    q = list(map(int, sys.stdin.readline().split()))
+    assert len(q) == n
+    print(qty(q)[-1])
+
+
+if __name__ == '__main__':
+    qty_of_inversions()
+"import sys
+
+from random import randint
+
+
+def partition(seq):
+    _ = randint(0, len(seq) - 1)
+    seq[0], seq[_] = seq[_], seq[0]
+    j, k = 0, 0
+    for i in range(1, len(seq)):
+        if seq[i] <= seq[0]:
+            k += 1
+            seq[i], seq[k] = seq[k], seq[i]
+            if seq[k] < seq[0]:
+                j += 1
+                seq[k], seq[j] = seq[j], seq[k]
+    seq[0], seq[j] = seq[j], seq[0]
+    return j, k
+
+
+def quick_sort(seq):
+    if len(seq) <= 1:
+        return seq
+
+    m, n = partition(seq)
+    return quick_sort(seq[:m]) + seq[m:n + 1] + quick_sort(seq[n + 1:])
+
+
+def middle(p, q, lt, rt):
+    if lt == rt:
+        if q[lt] <= p and lt == len(q) - 1:
+            lt += 1
+        return lt
+    delta = (rt - lt) // 2
+    m = lt + delta
+    if q[m] > p:
+        rt = m
+    elif q[m] == p:
+        if p != q[m + 1]:
+            lt = m + 1
+        else:
+            if delta:
+                lt = m
+            else:
+                lt = rt
+    else:
+        if delta:
+            lt = m
+        else:
+            lt = rt
+    return middle(p, q, lt, rt)
+
+
+def point_in_segments():
+    data = list(map(int, sys.stdin.read().split()))
+    n, m = data.pop(0), data.pop(0)
+    left = data[:2 * n:2]
+    right = data[1:2 * n:2]
+    points = data[2 * n:]
+    lt = quick_sort(left)
+    rt = quick_sort(right)
+    result = []
+    for point in points:
+        if point < lt[0] or point > rt[-1]:
+            result.append(0)
+        else:
+            result.append(
+                middle(point, lt, 0, n - 1) - middle(point - 1, rt, 0, n - 1)
+            )
+    return result
+
+
+if __name__ == '__main__':
+    print(' '.join(map(str, point_in_segments())))
+"import sys
+
+
+def main():
+    n = int(sys.stdin.readline())
+    a = list(map(int, sys.stdin.readline().split()))
+    assert len(a) == n
+    d = [0] * n
+    for i in range(n):
+        d[i] = 1
+        for j in range(i):
+            if a[i] % a[j] == 0 and d[j] + 1 > d[i]:
+                d[i] = d[j] + 1
+    ans = 0
+    for i in range(n):
+        ans = max(ans, d[i])
+    return ans
+
+
+if __name__ == '__main__':
+    print(main())
+"from sys import stdin
+
+
+def editing_distance():
+    a, b = [line[:-1] for line in stdin.readlines()]
+    a_, b_ = len(a) + 1, len(b) + 1
+    d = [[0 for _ in range(b_)] for _ in range(a_)]
+    for i in range(a_):
+        d[i][0] = i
+    for j in range(b_):
+        d[0][j] = j
+    for i in range(1, a_):
+        for j in range(1, b_):
+            c = int(a[i - 1] != b[j - 1])
+            d[i][j] = min(d[i - 1][j] + 1,
+                          d[i][j - 1] + 1,
+                          d[i - 1][j - 1] + c
+                          )
+    print(d[-1][-1])
+
+
+if __name__ == '__main__':
+    editing_distance()
+"from sys import stdin
+
+
+def knapsack():
+    reader = (tuple(map(int, line.split())) for line in stdin)
+    wk, n = next(reader)
+    w = list(next(reader))
+    d = [[0 for _ in range(wk + 1)] for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        for j in range(1, wk + 1):
+            d[i][j] = d[i - 1][j]
+            if w[i - 1] <= j:
+                d[i][j] = max(d[i][j], d[i - 1][j - w[i - 1]] + w[i - 1])
+    print(d[-1][-1])
+
+
+if __name__ == '__main__':
+    knapsack()
+"from sys import stdin
+
+
+def stair():
+    n = int(stdin.readline().strip())
+    s = [int(x) for x in stdin.readline().split()]
+    prev2, prev1, current = 0, 0, 0
+    for i in range(n):
+        current = s[i] + max(prev1, prev2)
+        prev2, prev1 = prev1, current
+    print(current)
+
+
+if __name__ == '__main__':
+    stair()
+"def calc():
+    n = int(input())
+    d = [0, 0]
+    
+    for i in range(2, n + 1):
+        if i % 3 == 0:
+            x3 = d[i // 3] + 1
+        else:
+            x3 = float('inf')
+
+        if i % 2 == 0:
+            x2 = d[i // 2] + 1
+        else:
+            x2 = float('inf')
+        
+        x1 = d[i - 1] + 1
+        d.append(min(x1, x2, x3))
+    
+    k = n
+    chain = [n]
+    while k > 1:
+        if k % 3 == 0 and d[k] == d[k // 3] + 1:
+            k = k // 3
+        elif k % 2 == 0 and d[k] == d[k // 2] + 1:
+            k = k // 2
+        else:
+            k = k - 1
+        chain.append(k)
+
+    print(d[-1])
+    print(*reversed(chain))
+
+
+if __name__ == '__main__':
+    calc()
+"a = input()
+while a.lower() != 'end':
+    print(f'Processing ""{a}"" command...')
+    a = input()
+print('Good bye!')
+,
+user = input('Enter your name: ')
+print(f'Hello {user}')
+,
+s = input()
+n = ''
+s_out = ''
+for sign in s:
+    if sign.isdigit():
+        n = n + sign
+    else:
+        if not n:
+            n = '1'
+        s_out = s_out + sign * int(n)
+        n = ''
+print(s_out)
+"input_string = input()
+encoded_string = ''
+count = ''
+prev_symbol = ''
+for symbol in input_string:
+    if symbol == prev_symbol:
+        count = str(int(count or 1) + 1)
+    else:
+        encoded_string = encoded_string + count + prev_symbol
+        prev_symbol = symbol
+        count = ''
+encoded_string = encoded_string + count + prev_symbol
+print(encoded_string)
+"def fraction_of_students(grades):
+    grades = grades.split()
+    return f'{(grades.count(""A"") / len(grades)):.2f}'
+
+
+if __name__ == '__main__':
+    print(fraction_of_students(input()))
+"def math_interpreter(expression):
+    commands = ['plus', 'minus', 'multiply', 'divide']
+    first, command, second = expression.split()
+    first, second = int(first), int(second)
+    if command not in commands:
+        return f'Unknow command: ""{command}"".'
+    if command == 'plus':
+        result = first + second
+    elif command == 'minus':
+        result = first - second
+    elif command == 'multiply':
+        result = first * second
+    elif second == 0:
+        return f'Error: ""Zero divide""'
+    else:
+        result = first // second
+    return result
+
+
+if __name__ == '__main__':
+    print(math_interpreter(input()))
+"import operator
+
+
+def math_interpreter(a, oper, b):
+    operations = {'plus': operator.add(int(a), int(b)),
+                  'minus': operator.sub(int(a), int(b)),
+                  'multiply': operator.mul(int(a), int(b)),
+                  'divide': operator.floordiv(int(a), int(b))
+                 }
+    return operations[oper]
+
+
+if __name__ == '__main__':
+    print(math_interpreter(*input().split()))
+,
+def modify_list(l):
+    l[:] = [x // 2 for x in l if x % 2 == 0]
+"def modify_list(l):
+    a = []
+    while l:
+        item = l.pop()
+        if not item % 2:
+            a.append(item // 2)
+    l[:] = a[::-1]
+"def comparison(two_cards, trump):
+    cards = {'6': 0, '7': 1, '8': 2, '9': 3, '10': 4, 'J': 5, 'Q': 6, 'K': 7, 'A': 8}
+    card1, card2 = two_cards[0][:-1], two_cards[1][:-1]
+    suit1, suit2 = two_cards[0][-1], two_cards[1][-1]
+    if suit1 == suit2:
+        return 'First' if cards[card1] > cards[card2] else 'Second'
+    elif trump in [suit1, suit2]:
+        return 'First' if trump == suit1 else 'Second'
+    else:
+        return 'Error'
+
+
+if __name__ == '__main__':
+    print(comparison(input().split(), input()))

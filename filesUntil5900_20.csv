@@ -1,0 +1,325 @@
+# put your python code here
+from collections import deque
+
+
+class Deque(deque):
+    def pop(self, *args, **kwargs):
+        if super(Deque, self).__len__() > 0:
+            return super(Deque, self).pop()
+        return -1
+
+    def popleft(self, *args, **kwargs):
+        if super(Deque, self).__len__() > 0:
+            return super(Deque, self).popleft()
+        return -1
+
+
+d = Deque()
+operations = [d.append, d.pop, d.appendleft, d.popleft]
+for _ in range(int(input())):
+    op, value = map(int, input().split())
+    if op in (1, 3):
+        operations[op - 1](value)
+    if op in (2, 4) and value != operations[op - 1]():
+        print('NO')
+        break
+else:
+    print('YES')
+"class multifilter:
+    def judge_half(pos, neg):
+        # accepts the element, if at least half of the functions accept this element (pos >= neg)
+        return pos >= neg
+
+    def judge_any(pos, neg):
+        # accepts the element, if at least one of the functions accept it (pos >= 1)
+        return pos >= 1
+
+    def judge_all(pos, neg):
+        # accepts the element, if at all functions accept it (neg == 0)
+        return neg == 0
+
+    def __init__(self, iterable, *funcs, judge=judge_any):
+        # iterable - the original sequence
+        # funcs - the allowing functions
+        # judge - the judging function
+        self.iterable = iterable
+        self.funcs = funcs
+        self.judge = judge
+
+    def __iter__(self):
+        # returns iterator on the resulting sequence
+        for it in self.iterable:
+            pos = sum(func(it) for func in self.funcs)
+            neg = len(self.funcs) - pos
+            if self.judge(pos, neg):
+                yield it
+"# put your python code here
+from collections import Counter
+
+
+def get_combination(hands):
+    card_values = ('2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A')
+    values = {v: k for k, v in enumerate(card_values)}
+
+    hand_values, hand_suits = zip(*((values[c[:-1]], c[-1]) for c in hands.split()))
+
+    subsequents_values = [sorted((i + j) % len(values) for j in range(len(hand_values))) for i in range(len(values))]
+    hand_values = sorted(hand_values)
+
+    if len(set(hand_suits)) == 1:
+        if hand_values in subsequents_values:
+            return 'Royal Flush' if hand_values[0] == len(values) - len(hand_values) else 'Straight Flush'
+        else:
+            return 'Flush'
+    else:
+        values_counters = Counter(hand_values).values()
+
+        if 4 in values_counters:
+            return 'Four of a Kind'
+        elif 2 in values_counters and 3 in values_counters:
+            return 'Full House'
+        elif hand_values in subsequents_values:
+            return 'Straight'
+        elif 3 in values_counters:
+            return 'Three of a Kind'
+        elif len(values_counters) == 3 and 2 in values_counters:
+            return 'Two Pairs'
+        elif 2 in values_counters:
+            return 'Pair'
+        else:
+            return 'High Card'
+
+
+print(get_combination(input()))
+"# put your python code here
+from collections import Counter
+
+
+def get_combination(hands):
+    values = {v: k for k, v in enumerate(('2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'))}
+
+    hand_values, hand_suits = zip(*((values[c[:-1]], c[-1]) for c in hands.split()))
+
+    subsequents_values = (sorted((i + j) % len(values) for j in range(len(hand_values))) for i in range(len(values)))
+    hand_values = sorted(hand_values)
+
+    if len(set(hand_suits)) == 1:
+        if hand_values in subsequents_values:
+            return 'Royal Flush' if hand_values[0] == len(values) - len(hand_values) else 'Straight Flush'
+        else:
+            return 'Flush'
+    else:
+        values_counters = Counter(hand_values).values()
+
+        if 4 in values_counters:
+            return 'Four of a Kind'
+        elif 2 in values_counters and 3 in values_counters:
+            return 'Full House'
+        elif hand_values in subsequents_values:
+            return 'Straight'
+        elif 3 in values_counters:
+            return 'Three of a Kind'
+        elif len(values_counters) == 3 and 2 in values_counters:
+            return 'Two Pairs'
+        elif 2 in values_counters:
+            return 'Pair'
+        else:
+            return 'High Card'
+
+
+print(get_combination(input()))
+"# put your python code here
+def check_brackets(line):
+    open_brackets = '({['
+    close_brackets = ')}]'
+    pairs = dict(zip(open_brackets, close_brackets))
+    reverse_pairs = dict(zip(close_brackets, open_brackets))
+
+    prefix, stack = '', []
+    for c in line:
+        if c in open_brackets:
+            stack.append(pairs[c])
+        elif stack:
+            if c != stack[-1]:
+                return 'IMPOSSIBLE'
+            stack.pop()
+        else:
+            prefix = reverse_pairs[c] + prefix
+    else:
+        while stack:
+            line = line + stack.pop()
+        return prefix + line
+
+
+print(check_brackets(input()))
+"import numpy as np
+mat = np.zeros([3, 4])
+np.fill_diagonal(mat, 2)
+rng = np.arange(3)
+mat[rng, rng+1] = 1
+print(np.vstack(mat.flatten()))
+"# put your python code here
+class Box:
+    def __init__(self, dimensions):
+        self.length, self.width, self.height = dimensions
+
+    def __eq__(self, other):
+        if isinstance(other, Box):
+            return self.length == other.length and self.width == other.width and self.height == other.height
+        return False
+
+    def __le__(self, other):
+        if isinstance(other, Box):
+            return self.length <= other.length and self.width <= other.width and self.height <= other.height
+        return False
+
+    def __ge__(self, other):
+        if isinstance(other, Box):
+            return self.length >= other.length and self.width >= other.width and self.height >= other.height
+        return False
+
+
+box1, box2 = Box(sorted(int(input()) for _ in range(3))), Box(sorted(int(input()) for _ in range(3)))
+if box1 == box2:
+    print('Boxes are equal')
+elif box1 <= box2:
+    print('The first box is smaller than the second one')
+elif box1 >= box2:
+    print('The first box is larger than the second one')
+else:
+    print('Boxes are incomparable')
+"# put your python code here
+import sys
+print(*sys.stdin.read().split()[1::2][::-1])
+"# put your python code here
+s, a, b = (input() for _ in range(3))
+count = 0
+while a in s:
+    if a in b:
+        count = 'Impossible'
+        break
+    s = s.replace(a, b)
+    count += 1
+print(count)
+"# put your python code here
+_, a = input(), input().split()
+print(*(a[i - 1] for i in range(len(a))))
+"# put your python code here
+def IsPointInSquare(x, y):
+    return -1 <= x <= 1 and -1 <= y <= 1
+
+
+print('YES' if IsPointInSquare(*map(float, (input() for _ in range(2)))) else 'NO')
+"# put your python code here
+import itertools
+
+
+def gen_sequence():
+    D = {}
+    for q in itertools.count(2):
+        p = D.pop(q, None)
+        if p is None:
+            yield q
+            D[q * q] = q
+        else:
+            x = p + q
+            while x in D:
+                x += p
+            D[x] = p
+
+_ = input()
+primes = list(itertools.takewhile(lambda x: x <= 2750159, gen_sequence())) # 2750159 - 200000th prime number
+print(*(primes[int(i) - 1] for i in input().split()))
+"# put your python code here
+from itertools import combinations
+
+
+def is_can_beat(queens):
+    delta_x = abs(queens[0][0] - queens[1][0])
+    delta_y = abs(queens[0][1] - queens[1][1])
+    return delta_x == 0 or delta_y == 0 or delta_x == delta_y
+
+
+print('YES' if any(map(is_can_beat, combinations((tuple(map(int, input().split())) for _ in range(8)), 2))) else 'NO')
+"# put your python code here
+import re
+
+pattern = re.compile(r'(-?)(\d*)\*?x\^?(\d*)')
+
+powers = {}
+
+for term in pattern.findall(input()):
+    sign, c, exp = (x if i == 0 else int(x or 1) for i, x in enumerate(term))
+    powers[exp] = powers.setdefault(exp, 0) + (-c if sign == '-' else c)
+
+terms = []
+for exp in sorted(powers, reverse=True):
+    if exp == 1:
+        terms.append('{}'.format(powers[exp]))
+    elif exp == 2:
+        terms.append('{}*x'.format(powers[exp] * exp))
+    else:
+        terms.append('{}*x^{}'.format(powers[exp] * exp, exp - 1))
+
+print('+'.join(terms).replace('+-', '-'))
+"# put your python code here
+movement = {'North': lambda p: (start[0], start[1] + p),
+            'South': lambda p: (start[0], start[1] - p),
+            'East': lambda p: (start[0] + p, start[1]),
+            'West': lambda p: (start[0] - p, start[1])}
+
+start = (0, 0)
+for _ in range(int(input())):
+    move, distance = input().split()
+    start = movement[move](int(distance))
+
+print(*start)
+"# put your python code here
+def int_log(n):
+    count = 0
+    while n >= 2:
+        count += 1
+        n >>= 1
+    return count
+
+
+for _ in range(int(input())):
+    print(int_log(int(input())))
+"# put your python code here
+from math import ceil
+
+
+def c(n, k):
+    res = 1
+    for i in range(1, k + 1):
+        res *= (n - k + i) / i
+    return ceil(res)
+
+
+print(c(*map(int, input().split())))
+"# put your python code here
+total, count = 0, 0
+
+while True:
+    value = int(input())
+    if value == 0:
+        break
+    total += value
+    count += 1
+
+
+print(total / count)
+"# put your python code here
+def koch_turns(step):
+    track = ' '
+    for i in range(step):
+        track = track.replace(' ',' 60 -120 60 ')
+    for i in track.split():
+        print('turn', i)
+
+koch_turns(int(input()))
+"# put your python code here
+from itertools import groupby
+
+groups = ((len(list(g)), k) for k, g in groupby(input()))
+print(''.join('{}{}'.format(l, r) if l != 1 else r for l, r in groups))
